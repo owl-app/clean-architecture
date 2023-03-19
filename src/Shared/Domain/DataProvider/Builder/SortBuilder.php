@@ -4,8 +4,6 @@ namespace Owl\Shared\Domain\DataProvider\Builder;
 
 class SortBuilder implements SortBuilderInterface
 {
-    private string $name;
-
     private string $paramName;
 
     private array $available;

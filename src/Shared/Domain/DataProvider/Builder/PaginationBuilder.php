@@ -4,8 +4,6 @@ namespace Owl\Shared\Domain\DataProvider\Builder;
 
 class PaginationBuilder implements PaginationBuilderInterface
 {
-    private string $name;
-
     private string $paramPerPageName;
 
     private string $paramPageName;
