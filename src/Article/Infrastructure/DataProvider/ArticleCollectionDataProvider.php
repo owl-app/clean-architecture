@@ -30,7 +30,7 @@ final class ArticleCollectionDataProvider extends AbstractCollectionType impleme
     {
         $sortBuilder
             ->setParamName('sort')
-            ->setAvailable(['id'])
+            ->setAvailable(['id', 'title'])
         ;
     }
 }

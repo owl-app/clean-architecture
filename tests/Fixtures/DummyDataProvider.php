@@ -18,10 +18,13 @@ final class DummyDataProvider extends AbstractCollectionType implements Buildabl
 
     private array $paginationConfig;
 
+    private array $sortConfig;
+
     public function __construct(array $config = [])
     {
         $this->filterConfig = $config['filter'] ?? [];
         $this->paginationConfig = $config['pagination'] ?? [];
+        $this->sortConfig = $config['sort'] ?? [];
     }
 
     public function buildQueryBuilder(QueryBuilder $queryBuilder): void
@@ -45,9 +48,10 @@ final class DummyDataProvider extends AbstractCollectionType implements Buildabl
 
     public function buildSort(SortBuilderInterface $sortBuilder): void
     {
+        $available = $this->sortConfig['available'] ?? [];
+
         $sortBuilder
-            ->setParamName('sort')
-            ->setAvailable(['id'])
+            ->setAvailable($available)
         ;
     }
 }

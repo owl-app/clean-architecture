@@ -46,7 +46,7 @@ class SortBuilder implements SortBuilderInterface
 
     public function getSorting(): array
     {
-       if (isset($this->queryParams[$this->paramName])) {
+       if (isset($this->queryParams[$this->paramName]) && is_array($this->queryParams[$this->paramName])) {
           return $this->queryParams[$this->paramName];
        }
  

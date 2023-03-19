@@ -34,6 +34,11 @@ class SortApplicator implements CollectionApplicatorInterface, BuilderAwareInter
 
     public function applyToCollection(QueryBuilder $queryBuilder, CollectionTypeInterface $collectionType, CollectionRequestParamsInterface $collectionRequestParams) : void
     {
+        $orderByDqlPart = $queryBuilder->getDQLPart('orderBy');
+        if (\is_array($orderByDqlPart) && \count($orderByDqlPart) > 0) {
+            return;
+        }
+
         $collectionType->buildSort($this->builder);
 
         $sorts = $this->builder->getSorting();
