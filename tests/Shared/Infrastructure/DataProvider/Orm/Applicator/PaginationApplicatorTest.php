@@ -18,7 +18,6 @@ use Owl\Shared\Domain\DataProvider\Pagination\PaginatorInterface;
 use Owl\Shared\Domain\DataProvider\Pagination\PartialPaginatorInterface;
 use Owl\Shared\Domain\DataProvider\Registry\BuilderRegistry;
 use Owl\Tests\Fixtures\DummyDataProvider;
-use Owl\Tests\Fixtures\DummyEmptyDataProvider;
 use Owl\Tests\Fixtures\Entity\Dummy;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
@@ -162,7 +161,7 @@ class PaginationApplicatorTest extends TestCase
         $queryBuilder = $queryBuilderProphecy->reveal();
 
         $builderRegistry = new BuilderRegistry();
-        $collectionType = new DummyEmptyDataProvider();
+        $collectionType = new DummyDataProvider();
         $collectionRequestParams = $this->prophesize(CollectionRequestParamsInterface::class);
 
         $collectionRequestParams->getDefaultPagination()->willReturn([])->shouldBeCalled();
@@ -184,7 +183,7 @@ class PaginationApplicatorTest extends TestCase
         $queryBuilder = $queryBuilderProphecy->reveal();
 
         $builderRegistry = new BuilderRegistry();
-        $collectionType = new DummyEmptyDataProvider();
+        $collectionType = new DummyDataProvider();
         $collectionRequestParams = $this->prophesize(CollectionRequestParamsInterface::class);
 
         $collectionRequestParams->getDefaultPagination()->willReturn([])->shouldBeCalled();
@@ -207,7 +206,7 @@ class PaginationApplicatorTest extends TestCase
         $queryBuilder = $queryBuilderProphecy->reveal();
 
         $builderRegistry = new BuilderRegistry();
-        $collectionType = new DummyEmptyDataProvider();
+        $collectionType = new DummyDataProvider();
         $collectionRequestParams = $this->prophesize(CollectionRequestParamsInterface::class);
 
         $collectionRequestParams->getDefaultPagination()->willReturn(['allowed_per_page' => $allowedPerPage])->shouldBeCalled();

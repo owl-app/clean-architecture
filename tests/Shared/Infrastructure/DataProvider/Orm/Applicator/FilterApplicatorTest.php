@@ -15,7 +15,6 @@ use Owl\Shared\Infrastructure\DataProvider\Orm\Resolver\FieldResolverInterface;
 use Owl\Shared\Domain\DataProvider\Type\CollectionTypeInterface;
 use Owl\Shared\Infrastructure\DataProvider\Orm\Applicator\FilterApplicator;
 use Owl\Tests\Fixtures\DummyDataProvider;
-use Owl\Tests\Fixtures\DummyEmptyDataProvider;
 use Owl\Tests\Fixtures\DummyFilter;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -61,7 +60,9 @@ class FilterApplicatorTest extends TestCase
         $filterRegistry = new FilterRegistry('Owl\Shared\Domain\DataProvider\Filter\FilterInterface');
         $filterRegistry->register(DummyFilter::class, $filterProphecy);
         $fieldResolver = $this->prophesize(FieldResolverInterface::class);
-        $collectionType = new DummyDataProvider();
+        $collectionType = new DummyDataProvider(['filters' => [
+            ['name' => 'filterName', 'filter' => DummyFilter::class, 'fields' => ['field1']]]
+        ]);
         $collectionRequestParams = $this->prophesize(CollectionRequestParamsInterface::class);
 
         $collectionRequestParams->getDefaultFiltering()->willReturn(['param_filter_name' => 'filters'])->shouldBeCalled();
@@ -101,7 +102,9 @@ class FilterApplicatorTest extends TestCase
 
         $filterRegistry = new FilterRegistry('Owl\Shared\Domain\DataProvider\Filter\FilterInterface');
         $fieldResolver = $this->prophesize(FieldResolverInterface::class);
-        $collectionType = new DummyDataProvider();
+        $collectionType = new DummyDataProvider(['filters' => [
+            ['name' => 'filterName', 'filter' => DummyFilter::class, 'fields' => ['field1']]]
+        ]);
         $collectionRequestParams = $this->prophesize(CollectionRequestParamsInterface::class);
 
         $collectionRequestParams->getDefaultFiltering()->willReturn(['param_filter_name' => 'filters'])->shouldBeCalled();
@@ -123,7 +126,7 @@ class FilterApplicatorTest extends TestCase
 
         $filterRegistry = new FilterRegistry('Owl\Shared\Domain\DataProvider\Filter\FilterInterface');
         $fieldResolver = $this->prophesize(FieldResolverInterface::class);
-        $collectionType = new DummyEmptyDataProvider();
+        $collectionType = new DummyDataProvider();
         $collectionRequestParams = $this->prophesize(CollectionRequestParamsInterface::class);
 
         $collectionRequestParams->getDefaultFiltering()->willReturn(['param_filter_name' => 'filters'])->shouldBeCalled();
@@ -153,7 +156,9 @@ class FilterApplicatorTest extends TestCase
         $filterRegistry = new FilterRegistry('Owl\Shared\Domain\DataProvider\Filter\FilterInterface');
         $filterRegistry->register(DummyFilter::class, $filterProphecy);
         $fieldResolver = $this->prophesize(FieldResolverInterface::class);
-        $collectionType = new DummyDataProvider();
+        $collectionType = new DummyDataProvider(['filters' => [
+            ['name' => 'filterName', 'filter' => DummyFilter::class, 'fields' => ['field1']]]
+        ]);
         $collectionRequestParams = $this->prophesize(CollectionRequestParamsInterface::class);
 
         $collectionRequestParams->getDefaultFiltering()->willReturn(['param_filter_name' => 'filters'])->shouldBeCalled();

@@ -14,6 +14,8 @@ use Owl\Shared\Infrastructure\DataProvider\Orm\Type\BuildableQueryBuilderInterfa
 
 final class DummyDataProvider extends AbstractCollectionType implements BuildableQueryBuilderInterface, ArticleCollectionDataProviderInterface
 {
+    private array $queryBuilderConfig;
+
     private array $filterConfig;
 
     private array $paginationConfig;
@@ -22,21 +24,28 @@ final class DummyDataProvider extends AbstractCollectionType implements Buildabl
 
     public function __construct(array $config = [])
     {
-        $this->filterConfig = $config['filter'] ?? [];
+        $this->queryBuilderConfig = $config['query_builder'] ?? [];
+        $this->filterConfig = $config['filters'] ?? [];
         $this->paginationConfig = $config['pagination'] ?? [];
         $this->sortConfig = $config['sort'] ?? [];
     }
 
     public function buildQueryBuilder(QueryBuilder $queryBuilder): void
     {
-
+        if(isset($this->queryBuilderConfig['with_add_select'])) {
+            $queryBuilder->addSelect($this->queryBuilderConfig['with_add_select']);
+        }
     }
 
     public function buildFilters(FilterBuilderInterface $filterBuilder): void
     {
-        $filterBuilder
-            ->add('filterName', DummyFilter::class, ['field1'])
-        ;
+        if($this->filterConfig) {
+            foreach($this->filterConfig as $filter) {
+                $filterBuilder
+                    ->add($filter['name'], $filter['filter'], $filter['fields'])
+                ;
+            }
+        }
     }
 
     public function buildPagination(PaginationBuilderInterface $paginationBuilder): void
