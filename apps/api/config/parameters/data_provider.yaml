@@ -1,0 +1,13 @@
+parameters:
+    data_provider:
+      sorting: 
+        param_name: sort
+      filtering:
+        param_filter_name: filters
+      pagination:
+        fetch_join_collection: true
+        use_output_walkers: false
+        param_per_page_name: per-page
+        param_page_name: page
+        default_per_page: 20
+        allowed_per_page: [10,20,50,100]

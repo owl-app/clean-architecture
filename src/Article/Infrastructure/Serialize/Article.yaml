@@ -1,0 +1,4 @@
+Owl\Article\Application\Dto\CreateArticleRequestDto:
+  attributes:
+    title:
+      ignore: false

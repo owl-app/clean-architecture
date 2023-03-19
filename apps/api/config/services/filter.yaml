@@ -1,0 +1,9 @@
+services:
+  owl.data_provider.filter.string:
+    class: Owl\Shared\Infrastructure\DataProvider\Orm\Filter\StringFilter
+    tags: 
+      - { name: 'owl.data_provider_filter' }
+  # owl.data_provider.filter.article_index:
+  #   class: Owl\Article\Application\Filter\ArticleSearchFilter
+  #   tags: 
+  #     - { name: 'owl.data_provider_filter' }

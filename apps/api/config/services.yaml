@@ -1,0 +1,45 @@
+services:
+  _defaults:
+    autoconfigure: true
+    autowire: true
+
+  # Autowire
+  Owl\:
+    resource: '../../../src'
+
+  Owl\Apps\Api\Controller\:
+    resource: '../src/Controller'
+    tags: ['controller.service_arguments']
+
+  _instanceof:
+      Owl\Shared\Domain\Bus\Command\CommandHandlerInterface:
+          tags:
+              - { name: messenger.message_handler, bus: command.bus }
+      Owl\Shared\Domain\Bus\Query\QueryHandlerInterface:
+          tags:
+              - { name: messenger.message_handler, bus: query.bus }
+      Owl\Shared\Domain\Bus\Event\EventBusHandlerInterface:
+          tags:
+              - { name: messenger.message_handler, bus: event.bus }
+
+  Owl\Shared\Infrastructure\Symfony\Http\ArgumentResolver\RequestDtoArgumentResolver:
+      tags:
+        - { name: controller.argument_value_resolver, priority: 64 }
+
+  Owl\Shared\Infrastructure\Symfony\EventListener\RequestValidationExceptionListener:
+      tags:
+        - { name: kernel.event_listener, event: kernel.exception, priority: 64 }
+
+  Owl\Shared\Domain\Bus\Query\QueryBusInterface:
+      class: Owl\Shared\Infrastructure\Bus\Query\QueryBus
+      arguments:
+          - '@query.bus'
+
+  Owl\Shared\Domain\Bus\Command\CommandBusInterface:
+      class: Owl\Shared\Infrastructure\Bus\Command\CommandBus
+      arguments:
+          - '@command.bus'
+
+imports:
+    - { resource: services/data_provider.yaml }
+    - { resource: services/filter.yaml }

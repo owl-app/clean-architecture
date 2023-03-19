@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="2"
+    resolveFromConfigFile="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+    findUnusedBaselineEntry="true"
+>
+    <projectFiles>
+        <directory name="src" />
+        <ignoreFiles>
+            <directory name="vendor" />
+        </ignoreFiles>
+    </projectFiles>
+    <issueHandlers>
+        <MissingConstructor>
+            <errorLevel type="info">
+                <file name="src/Shared/Infrastructure/DataProvider/Orm/Applicator/PaginationApplicator.php" />
+                <file name="src/Shared/Infrastructure/DataProvider/Orm/Applicator/SortApplicator.php" />
+            </errorLevel>
+        </MissingConstructor>
+
+        <!-- level 3 issues -->
+        <PropertyNotSetInConstructor errorLevel="info" />
+
+        <!-- level 4 issues -->
+        <PossiblyNullArrayOffset errorLevel="info" />
+        <PossiblyNullArgument errorLevel="info" />
+    </issueHandlers>
+</psalm>

@@ -1,0 +1,4 @@
+Owl\Article\Application\Dto\CreateCommentRequestDto:
+  properties:
+    description:
+        - NotBlank: ~

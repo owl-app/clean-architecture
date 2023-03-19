@@ -1,0 +1,5 @@
+framework:
+    serializer:
+        mapping:
+            paths:
+                - '%kernel.project_dir%/../../src/Article/Infrastructure/Serialize/Article.yaml'
