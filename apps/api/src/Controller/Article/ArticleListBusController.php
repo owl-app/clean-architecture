@@ -20,6 +20,16 @@ final class ArticleListBusController extends ApiController
     #[OA\Response(
         response: 200,
         description: 'Successful response',
+        parameters: new OA\Parameter(
+            name: "things[]",
+            in: "query",
+            description: "A list of things.",
+            required: false,
+            schema: new OA\Schema(
+                type: "array",
+                items: new OA\Items(type: "integer")
+            )
+        ),
         content: new OA\JsonContent(
             type: 'array',
             items: new OA\Items(ref: new Model(type: ArticleResponse::class))

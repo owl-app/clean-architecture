@@ -22,6 +22,21 @@ final class ArticleListController extends ApiController
             items: new OA\Items(ref: new Model(type: Article::class))
         )
     )]
+    #[OA\Parameter(
+        name: "filters[search][type]",
+        in: "query",
+        description: "Type search",
+        required: false,
+        schema: new OA\Schema(
+            enum: ['equal'],
+        )
+    )]
+    #[OA\Parameter(
+        name: "filters[search][value]",
+        in: "query",
+        description: "Value ",
+        required: false
+    )]
     #[OA\Tag(name: 'Articles', description: 'Articles in system')]
     public function __invoke(CollectionRequestParams $collectionRequestParams, ArticleList $articleList): JsonResponse
     {
