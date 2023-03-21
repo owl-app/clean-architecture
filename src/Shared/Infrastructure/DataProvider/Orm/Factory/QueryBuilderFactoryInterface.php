@@ -13,5 +13,5 @@ interface QueryBuilderFactoryInterface
     /**
      * @param class-string $dataClass A persistent object class name.
      */
-    public function create(string $dataClass, BuildableQueryBuilderInterface|CollectionTypeInterface $collectionType): QueryBuilder;
+    public function create(string $dataClass, BuildableQueryBuilderInterface|CollectionTypeInterface $collectionType = null): QueryBuilder;
 }

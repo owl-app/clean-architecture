@@ -17,7 +17,7 @@ class QueryBuilderFactory implements QueryBuilderFactoryInterface
     {
     }
 
-    public function create(string $dataClass, BuildableQueryBuilderInterface|CollectionTypeInterface $collectionType): QueryBuilder
+    public function create(string $dataClass, BuildableQueryBuilderInterface|CollectionTypeInterface $collectionType = null): QueryBuilder
     {
         /** @var EntityManagerInterface $manager */
         $manager = $this->managerRegistry->getManagerForClass($dataClass);
@@ -29,7 +29,7 @@ class QueryBuilderFactory implements QueryBuilderFactoryInterface
 
         $queryBuilder = $repository->createQueryBuilder('o');
 
-        if($collectionType instanceof BuildableQueryBuilderInterface) {
+        if($collectionType && $collectionType instanceof BuildableQueryBuilderInterface) {
             $collectionType->buildQueryBuilder($queryBuilder);
         }
 
