@@ -11,8 +11,11 @@ services:
       - '@owl.data_provider.doctrine.orm.factory_query_builder'
       - !tagged_iterator data_provider.doctrine.orm.applicator.collection
 
-  Owl\Shared\Domain\DataProvider\CollectionDataProviderInterface:
-    alias: owl.data_provider.doctrine.orm.collection_data_provider
+  owl.data_provider.doctrine.orm.item_data_provider:
+    class: Owl\Shared\Infrastructure\DataProvider\Orm\ItemDataProvider
+    arguments:
+      - '@owl.data_provider.doctrine.orm.factory_query_builder'
+      - !tagged_iterator data_provider.doctrine.orm.applicator.item
 
   owl.data_provider.doctrine.request_params_factory:
     class: Owl\Shared\Domain\DataProvider\Factory\RequestParamsFactory
@@ -30,8 +33,7 @@ services:
       - '@owl.data_provider.doctrine.orm.field_resolver'
       - '@owl.registry.date_provider_filter'
     tags:
-      - { name: data_provider.doctrine.orm.applicator.collection, builder: Owl\Shared\Domain\DataProvider\Builder\Filterbuilder, priority: -64 }
-      - { name: data_provider.doctrine.orm.applicator.item, priority: -64 }
+      - { name: data_provider.doctrine.orm.applicator.collection, priority: -64 }
 
   owl.data_provider.doctrine.orm.sort_applicator:
     class: Owl\Shared\Infrastructure\DataProvider\Orm\Applicator\SortApplicator
@@ -44,6 +46,13 @@ services:
     class: Owl\Shared\Infrastructure\DataProvider\Orm\Applicator\PaginationApplicator
     tags:
       - { name: data_provider.doctrine.orm.applicator.collection, priority: -128 }
+
+  owl.data_provider.doctrine.orm.identifiers_applicator:
+    class: Owl\Shared\Infrastructure\DataProvider\Orm\Applicator\IdentifiersApplicator
+    arguments:
+      - '@owl.data_provider.doctrine.orm.field_resolver'
+    tags:
+      - { name: data_provider.doctrine.orm.applicator.item, priority: -128 }
 
   Owl\Shared\Infrastructure\Symfony\Http\ArgumentResolver\RequestDataProviderParamsResolver:
       arguments:

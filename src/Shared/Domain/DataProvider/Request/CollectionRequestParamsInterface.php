@@ -6,8 +6,6 @@ namespace Owl\Shared\Domain\DataProvider\Request;
 
 interface CollectionRequestParamsInterface
 {
-    public function getQueryParams(): array;
-
     public function getDefaultFiltering(): array;
 
     public function getDefaultSorting(): array;

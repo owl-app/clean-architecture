@@ -1,4 +1,4 @@
-article_get:
+article_get_list:
   path: /api/articles
   controller: Owl\Apps\Api\Controller\Article\ArticleListController
   methods:  [GET]
@@ -20,6 +20,11 @@ article_get_bus:
         default_sort:
           title: desc
 
+article_get:
+  path: /api/articles/{id}
+  controller: Owl\Apps\Api\Controller\Article\ArticleGetController
+  defaults: { auth: false }
+  methods:  [GET]
 
 article_post:
   path: /api/articles

@@ -23,7 +23,11 @@ class RequestDataProviderParamsResolver implements ValueResolverInterface
             return [];
         }
 
-        $request = $this->requestParamsFactory->create($argument->getType(), $request->attributes->get('data_provider', []), $request->query->all());
+        $request = $this->requestParamsFactory->create(
+            $argument->getType(),
+            $request->attributes->get('data_provider', []),
+            array_merge($request->query->all(), $request->attributes->get('_route_params', []))
+        );
 
         yield $request;
     }

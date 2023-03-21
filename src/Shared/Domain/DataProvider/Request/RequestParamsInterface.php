@@ -6,4 +6,5 @@ namespace Owl\Shared\Domain\DataProvider\Request;
 
 interface RequestParamsInterface
 {
+    public function getQueryParams(): array;
 }

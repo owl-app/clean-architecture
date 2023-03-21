@@ -6,11 +6,6 @@ namespace Owl\Shared\Domain\DataProvider\Request;
 
 class CollectionRequestParams extends RequestParams implements CollectionRequestParamsInterface
 {
-    public function getQueryParams(): array
-    {
-        return $this->query;
-    }
-
     public function getDefaultFiltering(): array
     {
         if (isset($this->parameters['filtering'])) {

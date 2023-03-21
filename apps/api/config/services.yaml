@@ -40,6 +40,12 @@ services:
       arguments:
           - '@command.bus'
 
+  Owl\Shared\Domain\DataProvider\CollectionDataProviderInterface:
+    alias: owl.data_provider.doctrine.orm.collection_data_provider
+
+  Owl\Shared\Domain\DataProvider\ItemDataProviderInterface:
+    alias: owl.data_provider.doctrine.orm.item_data_provider
+
 imports:
     - { resource: services/data_provider.yaml }
     - { resource: services/filter.yaml }

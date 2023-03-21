@@ -9,6 +9,7 @@ use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Owl\Shared\Domain\DataProvider\Exception\RuntimeException;
 use Owl\Shared\Domain\DataProvider\Type\CollectionTypeInterface;
+use Owl\Shared\Domain\DataProvider\Type\ItemTypeInterface;
 use Owl\Shared\Infrastructure\DataProvider\Orm\Type\BuildableQueryBuilderInterface;
 
 class QueryBuilderFactory implements QueryBuilderFactoryInterface
@@ -17,7 +18,7 @@ class QueryBuilderFactory implements QueryBuilderFactoryInterface
     {
     }
 
-    public function create(string $dataClass, BuildableQueryBuilderInterface|CollectionTypeInterface $collectionType = null): QueryBuilder
+    public function create(string $dataClass, BuildableQueryBuilderInterface|CollectionTypeInterface|ItemTypeInterface $collectionType = null): QueryBuilder
     {
         /** @var EntityManagerInterface $manager */
         $manager = $this->managerRegistry->getManagerForClass($dataClass);

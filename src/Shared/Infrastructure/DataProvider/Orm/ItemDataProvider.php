@@ -4,15 +4,10 @@ declare(strict_types=1);
 
 namespace Owl\Shared\Infrastructure\DataProvider\Orm;
 
-use Owl\Shared\Domain\DataProvider\Builder\BuilderAwareInterface;
-use Owl\Shared\Domain\DataProvider\CollectionDataProviderInterface;
 use Owl\Shared\Domain\DataProvider\ItemDataProviderInterface;
-use Owl\Shared\Domain\DataProvider\Registry\BuilderRegistry;
-use Owl\Shared\Domain\DataProvider\Request\CollectionRequestParamsInterface;
-use Owl\Shared\Domain\DataProvider\Type\CollectionTypeInterface;
-use Owl\Shared\Infrastructure\DataProvider\Orm\Applicator\CollectionResultableApplicatorInterface;
+use Owl\Shared\Domain\DataProvider\Request\RequestParamsInterface;
+use Owl\Shared\Domain\DataProvider\Type\ItemTypeInterface;
 use Owl\Shared\Infrastructure\DataProvider\Orm\Factory\QueryBuilderFactoryInterface;
-use Owl\Shared\Infrastructure\DataProvider\Orm\Type\BuildableQueryBuilderInterface;
 
 final class ItemDataProvider implements ItemDataProviderInterface
 {
@@ -22,21 +17,18 @@ final class ItemDataProvider implements ItemDataProviderInterface
     ) {
     }
 
-    public function get(string $dataClass, CollectionRequestParamsInterface $collectionRequestParams, ?BuildableQueryBuilderInterface $dataProviderType = null): iterable
+    public function get(string $dataClass, RequestParamsInterface $collectionRequestParams, ?ItemTypeInterface $itemProviderType = null): ?object
     {
-        $queryBuilder = $this->queryBuildeFactory->create($dataClass, $dataProviderType);
-        $builderRegistry = new BuilderRegistry();
+        $queryBuilder = $this->queryBuildeFactory->create($dataClass, $itemProviderType);
 
         foreach($this->applicators as $applicator) {
-            if($applicator instanceof BuilderAwareInterface) {
-                $applicator->setBuilder($builderRegistry, $dataProviderType, $collectionRequestParams);
-            }
+            $applicator->applyToItem($queryBuilder, $itemProviderType, $collectionRequestParams, $dataClass);
 
-            $applicator->applyToCollection($queryBuilder, $dataProviderType, $collectionRequestParams);
-
-            if ($applicator instanceof CollectionResultableApplicatorInterface && $applicator->supportsResult($dataProviderType, $collectionRequestParams, $builderRegistry)) {
-                return $applicator->getResult($queryBuilder, $dataProviderType, $collectionRequestParams, $builderRegistry);
-            }
+            // if ($applicator instanceof CollectionResultableApplicatorInterface && $applicator->supportsResult($dataProviderType, $collectionRequestParams)) {
+            //     return $applicator->getResult($queryBuilder, $itemProviderType, $collectionRequestParams);
+            // }
         }
+
+        return $queryBuilder->getQuery()->getOneOrNullResult();
     }
 }

@@ -15,4 +15,9 @@ class RequestParams implements RequestParamsInterface
         $this->parameters = $parameters;
         $this->query = $query;
     }
+
+    public function getQueryParams(): array
+    {
+        return $this->query;
+    }
 }
