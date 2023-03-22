@@ -19,10 +19,9 @@ class IdentifiersApplicator implements ItemApplicatorInterface
     public function applyToItem(QueryBuilder $queryBuilder, ?ItemTypeInterface $itemType, RequestParamsInterface $requestParams, string $dataClass): void
     {
         $queryParams = $requestParams->getQueryParams();
+        $identifiers = $itemType->getIdentifiers();
 
-        if($itemType) {
-            $identifiers = $itemType->getIdentifiers();
-        }else{
+        if($itemType || count($identifiers) === 0) {
             $classMetaData = $queryBuilder->getEntityManager()->getClassMetadata($dataClass);
             $identifiers = $classMetaData->getIdentifier();
         }
