@@ -63,6 +63,16 @@ services:
   owl.data_provider.doctrine.orm.field_resolver:
     class: Owl\Shared\Infrastructure\DataProvider\Orm\Resolver\FieldResolver
 
+  Owl\Shared\Infrastructure\DataProvider\Orm\Bus\Query\ItemQueryHandler:
+      autoconfigure: false
+      arguments: 
+        - '@owl.data_provider.doctrine.orm.item_data_provider'
+      tags:
+        -
+          bus: query.bus
+          name: messenger.message_handler
+          handles: Owl\Shared\Infrastructure\DataProvider\Orm\Bus\Query\ItemQuery
+
   Owl\Shared\Infrastructure\DataProvider\Orm\Bus\Query\CollectionQueryHandler:
       autoconfigure: false
       arguments: 

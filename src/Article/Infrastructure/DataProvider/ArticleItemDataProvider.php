@@ -12,6 +12,6 @@ final class ArticleItemDataProvider extends AbstractItemType
 {
     public function buildQueryBuilder(QueryBuilder $queryBuilder): void
     {
-        $queryBuilder->select('partial o.{id,title}');
+        $queryBuilder->select('partial o.{id,title, description}');
     }
 }

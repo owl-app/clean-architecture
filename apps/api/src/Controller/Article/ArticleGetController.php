@@ -6,9 +6,10 @@ namespace Owl\Apps\Api\Controller\Article;
 
 use OpenApi\Attributes as OA;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use Owl\Article\Application\List\ArticleGet;
+use Owl\Article\Application\Get\ArtliceGetMapper;
 use Owl\Article\Domain\Model\Article;
 use Owl\Shared\Domain\DataProvider\Request\RequestParams;
+use Owl\Shared\Infrastructure\DataProvider\Orm\Bus\Query\ItemQuery;
 use Owl\Shared\Infrastructure\Symfony\ApiController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -21,15 +22,16 @@ final class ArticleGetController extends ApiController
             ref: new Model(type: Article::class)
         )
     )]
-    #[OA\Parameter(
-        name: "id",
-        in: "query",
-        description: "Id article",
-        required: true,
-    )]
     #[OA\Tag(name: 'Articles', description: 'Articles in system')]
-    public function __invoke(RequestParams $requestParams, ArticleGet $articleGet): JsonResponse
+    public function __invoke(RequestParams $requestParams): JsonResponse
     {
-        return $this->responseJson($articleGet->__invoke($requestParams));
+        $data = $this->query(new ItemQuery(
+            Article::class,
+            $requestParams,
+            null,
+            new ArtliceGetMapper()
+        ));
+
+        return $this->responseJson($data);
     }
 }
