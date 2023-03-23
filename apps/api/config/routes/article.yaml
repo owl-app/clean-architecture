@@ -9,17 +9,6 @@ article_get_list:
         default_sort:
           title: desc
 
-article_get_bus:
-  path: /api/articles-bus
-  controller: Owl\Apps\Api\Controller\Article\ArticleListBusController
-  methods:  [GET]
-  defaults:
-    auth: false
-    data_provider:
-      sorting:
-        default_sort:
-          title: desc
-
 article_get:
   path: /api/articles/{id}
   controller: Owl\Apps\Api\Controller\Article\ArticleGetController

@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Owl\Article\Domain\Model;
 
-use Owl\Shared\Domain\Aggregate\AggregateRoot;
+use Owl\Shared\Domain\Persistence\AbstractBaseEntity;
 
-final class Article extends AggregateRoot
+final class Article extends AbstractBaseEntity
 {
-    private string $id;
-
     public function __construct(
         private string $title,
         private string $description
@@ -18,11 +16,9 @@ final class Article extends AggregateRoot
 
     public static function create(string $title, string $description): self
     {
-        $course = new self($title, $description);
+        $article = new self($title, $description);
 
-        // $course->record(new CourseCreatedDomainEvent($id->value(), $name->value(), $duration->value()));
-
-        return $course;
+        return $article;
     }
 
     public function toPrimitives(): array
@@ -32,11 +28,6 @@ final class Article extends AggregateRoot
             'title'     => $this->title,
             'description' => $this->description,
         ];
-    }
-
-    public function getId(): string
-    {
-        return $this->id;
     }
 
     public function getTitle(): string

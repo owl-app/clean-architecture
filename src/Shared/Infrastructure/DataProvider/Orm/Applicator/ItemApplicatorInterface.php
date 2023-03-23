@@ -10,5 +10,5 @@ use Owl\Shared\Domain\DataProvider\Type\ItemTypeInterface;
 
 interface ItemApplicatorInterface
 {
-    public function applyToItem(QueryBuilder $queryBuilder, ?ItemTypeInterface $collectionType, RequestParamsInterface $requestParams, string $dataClass): void;
+    public function applyToItem(QueryBuilder $queryBuilder, ?ItemTypeInterface $itemType, RequestParamsInterface $requestParams, string $dataClass): void;
 }

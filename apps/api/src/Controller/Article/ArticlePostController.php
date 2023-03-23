@@ -4,27 +4,53 @@ declare(strict_types=1);
 
 namespace Owl\Apps\Api\Controller\Article;
 
-use Owl\Article\Application\Create\CreateArticleCommand;
-use Owl\Article\Application\Dto\CreateArticleRequestDto;
+use OpenApi\Attributes as OA;
+use Owl\Article\Application\Create\ArticleCreator;
+use Owl\Article\Application\Create\Command\SendEmailNewArticle;
+use Owl\Article\Application\Create\CreateArticleRequest;
 use Owl\Shared\Infrastructure\Symfony\ApiController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 
 final class ArticlePostController extends ApiController
 {
-    public function __invoke(CreateArticleRequestDto $createArticleRequestDto, Request $request): JsonResponse
+    #[OA\Post(
+        summary: "Update article",
+        requestBody: new OA\RequestBody(
+            content: new OA\JsonContent(
+                required: ['title', 'description'],
+                properties: [
+                    new OA\Property(
+                        property: "title",
+                        type: "string",
+                        description: "Article title",
+                        format: 'text'
+                    ),
+                    new OA\Property(
+                        property: "description",
+                        type: "string",
+                        description: "Article description",
+                        format: 'text'
+                    ),
+                ]
+            )
+        )
+    )]
+    #[OA\Response(
+        response: 200,
+        description: 'Successful response'
+    )]
+    #[OA\Tag(name: 'Articles', description: 'Articles in system')]
+    public function __invoke(CreateArticleRequest $createArticleRequest, ArticleCreator $articleCreator): JsonResponse
     {
-        $payload = json_decode($request->getContent(), true);
+        $article = $articleCreator->__invoke($createArticleRequest);
 
         $this->dispatch(
-            new CreateArticleCommand(
-                (string) $payload['title'],
-                (string) $payload['description']
+            new SendEmailNewArticle(
+                $createArticleRequest->getTitle(),
+                $createArticleRequest->getDescription()
             )
         );
 
-        return new JsonResponse(
-            ['test' => 'test']
-        );
+        return $this->responseCreated($article);
     }
 }

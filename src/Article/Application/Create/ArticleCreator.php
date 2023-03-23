@@ -6,21 +6,20 @@ namespace Owl\Article\Application\Create;
 
 use Owl\Article\Domain\Model\Article;
 use Owl\Article\Domain\Repository\ArticleRepositoryInterface;
-use Symfony\Component\Messenger\MessageBusInterface;
 
 final class ArticleCreator
 {
     public function __construct(
-        private readonly ArticleRepositoryInterface $repository,
-        private readonly MessageBusInterface $bus
+        private readonly ArticleRepositoryInterface $repository
     ) {
     }
 
-    public function __invoke(string $name, string $duration): void
+    public function __invoke(CreateArticleRequest $createArticleRequest): Article
     {
-        $article = Article::create($name, $duration);
+        $article = Article::create($createArticleRequest->getTitle(), $createArticleRequest->getDescription());
 
         $this->repository->save($article);
-        // $this->bus->publish(...$course->pullDomainEvents());
+
+        return $article;
     }
 }

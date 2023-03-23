@@ -18,9 +18,6 @@ services:
       Owl\Shared\Domain\Bus\Query\QueryHandlerInterface:
           tags:
               - { name: messenger.message_handler, bus: query.bus }
-      Owl\Shared\Domain\Bus\Event\EventBusHandlerInterface:
-          tags:
-              - { name: messenger.message_handler, bus: event.bus }
 
   Owl\Shared\Infrastructure\Symfony\Http\ArgumentResolver\RequestDtoArgumentResolver:
       tags:

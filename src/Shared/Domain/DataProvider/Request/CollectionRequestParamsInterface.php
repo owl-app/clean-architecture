@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Owl\Shared\Domain\DataProvider\Request;
 
-interface CollectionRequestParamsInterface
+interface CollectionRequestParamsInterface extends RequestParamsInterface
 {
     public function getDefaultFiltering(): array;
 

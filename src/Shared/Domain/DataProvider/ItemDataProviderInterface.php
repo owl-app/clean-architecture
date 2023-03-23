@@ -12,5 +12,5 @@ interface ItemDataProviderInterface
     /**
      * @param class-string $dataClass A persistent object class name.
      */
-    public function get(string $dataClass, RequestParamsInterface $collectionRequestParams, ?ItemTypeInterface $itemProviderType = null): ?object;
+    public function get(string $dataClass, RequestParamsInterface $itemRequestParams, ?ItemTypeInterface $itemProviderType = null): ?object;
 }

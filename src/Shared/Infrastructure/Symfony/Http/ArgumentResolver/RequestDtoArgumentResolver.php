@@ -9,6 +9,7 @@ use Owl\Shared\Infrastructure\Symfony\Exception\RequestValidationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -29,16 +30,17 @@ class RequestDtoArgumentResolver implements ValueResolverInterface
         }
 
         $headers = $request->headers->all();
+        /**
+         * @psalm-suppress PossiblyInvalidArgument
+         */
         $headers = array_combine(
             array_map(fn($name) => str_replace('-', '_', $name), array_keys($headers)),
             array_map(fn($value) => is_array($value) ? reset($value) : $value, $headers)
         );
 
         $content = $request->getContent();
-        $contentDecoded = json_decode($content, true) ?? [];
-        $payload = array_merge($request->request->all(), $request->query->all(), $request->files->all(), $headers, $contentDecoded);
 
-        $request = $this->serializer->denormalize($payload, $argument->getType(), null, [
+        $request = $this->serializer->deserialize($content, $argument->getType(), JsonEncoder::FORMAT, [
             AbstractObjectNormalizer::DISABLE_TYPE_ENFORCEMENT => true
         ]);
 

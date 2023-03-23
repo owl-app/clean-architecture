@@ -10,7 +10,7 @@ use Owl\Shared\Domain\DataProvider\Mapper\ItemMapperInterface;
 final class ArtliceGetMapper implements ItemMapperInterface
 {
     /**
-     * @param Article $data
+     * @param Article|object $data
      * 
      * @return ArticleResponse
      */

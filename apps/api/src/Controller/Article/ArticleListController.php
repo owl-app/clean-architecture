@@ -6,14 +6,19 @@ namespace Owl\Apps\Api\Controller\Article;
 
 use OpenApi\Attributes as OA;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use Owl\Article\Application\List\ArticleList;
+use Owl\Article\Application\List\ArtliceListMapper;
 use Owl\Article\Domain\Model\Article;
+use Owl\Article\Infrastructure\DataProvider\ArticleCollectionDataProvider;
 use Owl\Shared\Domain\DataProvider\Request\CollectionRequestParams;
+use Owl\Shared\Infrastructure\DataProvider\Orm\Bus\Query\CollectionQuery;
 use Owl\Shared\Infrastructure\Symfony\ApiController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 final class ArticleListController extends ApiController
 {
+    #[OA\Get(
+        summary: "List articles",
+    )]
     #[OA\Response(
         response: 200,
         description: 'Successful response',
@@ -38,8 +43,15 @@ final class ArticleListController extends ApiController
         required: false
     )]
     #[OA\Tag(name: 'Articles', description: 'Articles in system')]
-    public function __invoke(CollectionRequestParams $collectionRequestParams, ArticleList $articleList): JsonResponse
+    public function __invoke(CollectionRequestParams $collectionRequestParams): JsonResponse
     {
-        return $this->responseJson($articleList->__invoke($collectionRequestParams));
+        $data = $this->query(new CollectionQuery(
+            Article::class,
+            new ArticleCollectionDataProvider(),
+            $collectionRequestParams,
+            new ArtliceListMapper()
+        ));
+
+        return $this->responseJson($data);
     }
 }

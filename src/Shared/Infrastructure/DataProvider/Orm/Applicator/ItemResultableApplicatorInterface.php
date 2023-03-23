@@ -12,5 +12,5 @@ interface ItemResultableApplicatorInterface extends CollectionApplicatorInterfac
 {
     public function supportsResult(ItemTypeInterface $collectionType, RequestParamsInterface $collectionRequestParams): bool;
 
-    public function getResult(QueryBuilder $queryBuilder, ItemTypeInterface $collectionType, RequestParamsInterface $collectionRequestParams): iterable;
+    public function getResult(QueryBuilder $queryBuilder, ItemTypeInterface $collectionType, RequestParamsInterface $collectionRequestParams):? object;
 }

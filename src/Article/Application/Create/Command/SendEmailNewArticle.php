@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Owl\Article\Application\Create;
+namespace Owl\Article\Application\Create\Command;
 
 use Owl\Shared\Domain\Bus\Command\CommandInterface;
 
-final class CreateArticleCommand implements CommandInterface
+final class SendEmailNewArticle implements CommandInterface
 {
     public function __construct(private readonly string $title, private readonly string $description)
     {

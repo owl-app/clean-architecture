@@ -33,6 +33,14 @@ abstract class ApiController
         return $this->queryBus->query($query);
     }
 
+    protected function responseCreated(mixed $data = null): JsonResponse
+    {
+        return (new JsonResponse)::fromJsonString($data ? $this->serializer->serialize($data, 'json', [
+                AbstractObjectNormalizer::DISABLE_TYPE_ENFORCEMENT => true
+            ])
+        : '', 201);
+    }
+
     protected function responseJson(mixed $data): JsonResponse
     {
         return (new JsonResponse)::fromJsonString($this->serializer->serialize($data, 'json', [

@@ -15,6 +15,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 final class ArticleGetController extends ApiController
 {
+    #[OA\Get(
+        summary: "Article item",
+    )]
     #[OA\Response(
         response: 200,
         description: 'Successful response',
