@@ -14,7 +14,7 @@ class ItemQueryHandler implements ItemQueryHandlerInterface
     {
     }
 
-    public function __invoke(ItemQueryInterface $itemQuery): object
+    public function __invoke(ItemQueryInterface $itemQuery):? object
     {
         /** @var object $data */
         $data = $this->itemDataProvider->get(
@@ -26,7 +26,7 @@ class ItemQueryHandler implements ItemQueryHandlerInterface
         /** @var object|null $mappedData */
         $mappedData = null;
 
-        if(!is_null($mapper)) {
+        if(!is_null($mapper) && $data) {
             $mappedData = $mapper->toResponse($data);
         }
 
