@@ -27,6 +27,8 @@ A simple application with articles, whose aim is to demonstrate the hexagonal ar
 
 This structure using also modules and diffrent apps.
 
+#### Article module
+
 ```scala
 $ tree -L 4 src
 
