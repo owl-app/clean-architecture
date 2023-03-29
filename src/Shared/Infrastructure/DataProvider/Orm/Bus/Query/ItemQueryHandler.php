@@ -26,7 +26,7 @@ class ItemQueryHandler implements ItemQueryHandlerInterface
         /** @var object|null $mappedData */
         $mappedData = null;
 
-        if(!is_null($mapper) && $data) {
+        if(!is_null($mapper)) {
             $mappedData = $mapper->toResponse($data);
         }
 
