@@ -13,7 +13,7 @@
 ## Features
 
 1. API with Swagger
-2. Data providers collection/item with resolving relations and DTO mapping.
+2. Data providers collection/item with resolving relations, filters and DTO mapping.
 3. Bus: Command and Query
 4. Serialization
 5. Request DTO resolver
@@ -26,6 +26,21 @@ A simple application with articles, whose aim is to demonstrate the clean archit
 ### Clean Architecture
 
 This structure using also modules and diffrent apps.
+
+#### Api app
+
+```scala
+$ tree -L 4 src
+
+apps
+|-- api
+|    -- src
+|       |-- Controller // Presentation layer, implements uses cases from article applications
+|       |   |-- Article // CQRS
+|       |   |   |-- ArticleGetController.php
+|       |   |   |-- ArticleListController.php
+|       |   |   |-- ArticlePostController.php
+```
 
 #### Article module
 
@@ -62,3 +77,25 @@ src
 |       |-- Validate
 |       |   |-- Article.yaml // Validation mapping article
 ```
+
+#### Shared module
+
+```scala
+$ tree -L 4 src
+
+src
+|-- Shared // Elements of application that are shared between various types of modules (data providers, buses)
+|    -- Application
+|       |-- Dto
+|       |   |-- RequestDtoInterface.php // Port DTO to auto resolve from request
+|    -- Domain
+|       |-- Bus // Ports for command and query bus
+|       |-- DataProvider // Ports and logic for collection/item data provider
+|       |-- Persistence // Ports DB
+|    -- Infrastructure
+|       |-- Bus // Adapter for command and query bus
+|       |-- DataProvider
+|       |-- |-- Orm // Adapter for Doctrine data providers
+|       |-- Persistence
+|       |   |-- Doctrine // Adapter for Doctrine elements (Repository etc)
+|       |-- Symfony // Adapter for various elements of application (e.g. Request DTO resolver)
