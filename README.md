@@ -84,7 +84,7 @@ src
 $ tree -L 4 src
 
 src
-|-- Shared // Elements of application that are shared between various types of modules (data providers, buses)
+|-- Shared // Elements of application that are shared between various types of modules
 |    -- Application
 |       |-- Dto
 |       |   |-- RequestDtoInterface.php // Port DTO to auto resolve from request
