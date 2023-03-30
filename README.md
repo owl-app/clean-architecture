@@ -1,5 +1,5 @@
 <h1 align="center">
-  Hexagonal Architecture & CQRS with Symfony
+  Clean Architecture & CQRS with Symfony
 </h1>
 <p align="center">
     <a href="#"><img src="https://img.shields.io/badge/Symfony-6.2-purple.svg?style=flat-square&logo=symfony" alt="Symfony 6.2"/></a>
@@ -21,9 +21,9 @@
 
 ## Project details
 
-A simple application with articles, whose aim is to demonstrate the hexagonal architecture in PHP using CQRS. It also includes several useful functionalities that can be used in target production applications.
+A simple application with articles, whose aim is to demonstrate the clean architecture in PHP using CQRS. It also includes several useful functionalities that can be used in target production applications.
 
-### Hexagonal Architecture
+### Clean Architecture
 
 This structure using also modules and diffrent apps.
 
