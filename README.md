@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  Example of a simple <strong>Symfony application using Hexagonal Architecture and Command Query Responsibility Segregation
+  Example of a simple <strong>Symfony application using Clean Architecture and Command Query Responsibility Segregation
   (CQRS) principles</strong> with some additional functionalities.
 </p>
 
