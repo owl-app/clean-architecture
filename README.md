@@ -103,9 +103,7 @@ src
 
 ### Data providers
 
-Example of usage article collection data provider.
-
-## Full Example
+Example of usage collection data provider.
 
 ```php
 <?php
@@ -146,6 +144,9 @@ final class ArticleCollectionDataProvider extends AbstractCollectionType impleme
 
     public function buildPagination(PaginationBuilderInterface $paginationBuilder): void
     {
+        $paginationBuilder
+            ->setAllowedPerPage([10,25,50,100])
+        ;
     }
 }
 ```
