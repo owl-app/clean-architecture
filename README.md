@@ -99,7 +99,7 @@ src
 |       |-- Persistence
 |       |   |-- Doctrine // Adapter for Doctrine elements (Repository etc)
 |       |-- Symfony // Adapter for various elements of application (e.g. Request DTO resolver)
-
+```
 
 ### Data providers
 
