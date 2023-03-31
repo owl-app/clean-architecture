@@ -35,8 +35,8 @@ $ tree -L 4 src
 apps
 |-- api
 |    -- src
-|       |-- Controller
-|       |   |-- Article // Presentation layer, implements uses cases from article applications
+|       |-- Controller // Presentation layer
+|       |   |-- Article // Implements uses cases from article applications
 |       |   |   |-- ArticleGetController.php
 |       |   |   |-- ArticleListController.php
 |       |   |   |-- ArticlePostController.php
