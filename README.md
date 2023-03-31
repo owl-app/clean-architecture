@@ -15,8 +15,8 @@
 1. API with Swagger
 2. Data providers collection/item with resolving relations, filters and DTO mapping.
 3. Bus: Command and Query
-4. Serialization
-5. Request DTO resolver
+4. Request DTO resolver
+5. Serialization
 6. Validation
 
 ## Project details
@@ -99,3 +99,53 @@ src
 |       |-- Persistence
 |       |   |-- Doctrine // Adapter for Doctrine elements (Repository etc)
 |       |-- Symfony // Adapter for various elements of application (e.g. Request DTO resolver)
+
+
+### Data providers
+
+Example of usage article collection data provider.
+
+## Full Example
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace Owl\Article\Infrastructure\DataProvider;
+
+use Owl\Article\Application\List\ArticleCollectionDataProviderInterface;
+use Owl\Shared\Domain\DataProvider\Builder\FilterBuilderInterface;
+use Owl\Shared\Domain\DataProvider\Builder\SortBuilderInterface;
+use Owl\Shared\Domain\DataProvider\Builder\PaginationBuilderInterface;
+use Owl\Shared\Infrastructure\DataProvider\Orm\Type\AbstractCollectionType;
+use Owl\Shared\Infrastructure\DataProvider\Orm\Filter\StringFilter;
+use Owl\Shared\Infrastructure\DataProvider\Orm\Type\BuildableQueryBuilderInterface;
+
+final class ArticleCollectionDataProvider extends AbstractCollectionType implements BuildableQueryBuilderInterface, ArticleCollectionDataProviderInterface
+{
+    public function buildQueryBuilder(QueryBuilder $queryBuilder): void
+    {
+        $queryBuilder->select('partial o.{id,title, description}');
+    }
+
+    public function buildFilters(FilterBuilderInterface $filterBuilder): void
+    {
+        $filterBuilder
+            ->add('search', StringFilter::class, ['title', 'description'])
+        ;
+    }
+
+    public function buildSort(SortBuilderInterface $sortBuilder): void
+    {
+        $sortBuilder
+            ->setParamName('sort')
+            ->setAvailable(['id', 'title'])
+        ;
+    }
+
+    public function buildPagination(PaginationBuilderInterface $paginationBuilder): void
+    {
+    }
+}
+```
