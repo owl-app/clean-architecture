@@ -215,3 +215,6 @@ final class ArticleCollectionDataProvider extends AbstractCollectionType impleme
     }
 }
 ```
+## Resources
+- [https://github.com/CodelyTV/php-ddd-example](CodelyTV/php-ddd-example)
+- [https://api-platform.com](API Platform)
