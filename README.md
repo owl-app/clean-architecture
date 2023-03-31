@@ -104,6 +104,8 @@ src
 
 ### Query Bus data provider with mapper
 
+Example of usage query bus collection data provider with mapper.
+
 ```php
 <?php
 
@@ -163,8 +165,6 @@ final class ArticleListController extends ApiController
     }
 }
 ```
-
-Example of usage collection data provider with query bus.
 
 ### Data providers
 
