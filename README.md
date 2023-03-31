@@ -189,7 +189,7 @@ final class ArticleCollectionDataProvider extends AbstractCollectionType impleme
 {
     public function buildQueryBuilder(QueryBuilder $queryBuilder): void
     {
-        $queryBuilder->select('partial o.{id,title, description}');
+        $queryBuilder->select('partial o.{id,title,description}');
     }
 
     public function buildFilters(FilterBuilderInterface $filterBuilder): void

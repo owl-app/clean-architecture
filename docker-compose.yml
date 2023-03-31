@@ -1,21 +1,55 @@
-version: '3'
+version: '3.4'
 
 services:
-###> doctrine/doctrine-bundle ###
-  database:
-    image: postgres:${POSTGRES_VERSION:-15}-alpine
+  php:
+    build:
+      context: .
+      target: owl_php
+    depends_on:
+      - mysql
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-app}
-      # You should definitely change the password in production
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
-      POSTGRES_USER: ${POSTGRES_USER:-app}
+      - APP_ENV=dev
+      - APP_DEBUG=1
+      - APP_SECRET=EDITME
+      - DATABASE_URL=mysql://owl_user:nopassword@mysql/owl
+      - MAILER_URL=smtp://mailhog:1025
+      - PHP_DATE_TIMEZONE=${PHP_DATE_TIMEZONE:-UTC}
     volumes:
-      - database_data:/var/lib/postgresql/data:rw
-      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/db/data:/var/lib/postgresql/data:rw
-###< doctrine/doctrine-bundle ###
+      - .:/var/www:rw,cached
+      - ./apps/api/public:/var/www/apps/api/public:rw,delegated
+
+  mysql:
+    image: mysql:8
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-nopassword}
+      - MYSQL_DATABASE=owl
+      - MYSQL_USER=owl_user
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-nopassword}
+    volumes:
+      - mysql-data:/var/lib/mysql:rw
+      # you may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
+      # - ./docker/mysql/data:/var/lib/mysql:rw,delegated
+    ports:
+      - "3306:3306"
+
+  nginx:
+    build:
+      context: .
+      target: owl_nginx
+    depends_on:
+      - php
+    volumes:
+      - ./apps/api/public:/var/www/apps/api/public:ro
+    ports:
+      - "80:80"
+
+  mailhog:
+    # do not use in production!
+    image: mailhog/mailhog:latest
+    environment:
+      - MH_STORAGE=maildir
+    ports:
+      - "8025:8025"
 
 volumes:
-###> doctrine/doctrine-bundle ###
-  database_data:
-###< doctrine/doctrine-bundle ###
+  mysql-data:
