@@ -1,4 +1,4 @@
-ARG PHP_VERSION=8.0
+ARG PHP_VERSION=8.1
 ARG ALPINE_VERSION=3.16
 ARG NODE_VERSION=16
 ARG NGINX_VERSION=1.23
@@ -18,12 +18,13 @@ RUN install-php-extensions \
     intl \
     opcache \
     pdo \
-    pdo_mysql
+    pdo_mysql \
+    amqp
 
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 
-COPY docker/php/php.ini /usr/local/etc/php/php.ini
-COPY docker/php/php-cli.ini /usr/local/etc/php/php-cli.ini
+COPY .docker/php/php.ini /usr/local/etc/php/php.ini
+COPY .docker/php/php-cli.ini /usr/local/etc/php/php-cli.ini
 
 FROM php_base as owl_php
 WORKDIR /var/www
@@ -34,7 +35,7 @@ RUN set -eux; \
 
 COPY . .
 
-COPY docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
+COPY .docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
 
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint"]
@@ -43,8 +44,8 @@ CMD ["php-fpm"]
 
 FROM nginx:${NGINX_VERSION}-alpine AS owl_nginx
 
-COPY docker/nginx/conf.d/default.conf /etc/nginx/conf.d/
+COPY .docker/nginx/conf.d/default.conf /etc/nginx/conf.d/
 
 WORKDIR /var/www
 
-COPY --from=owl_php /var/www/public public/
+COPY --from=owl_php /var/www/apps/api/public apps/api/public/
