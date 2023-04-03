@@ -21,7 +21,8 @@
 
 ## Project details
 
-A simple application with articles, whose aim is to demonstrate the clean architecture in PHP using CQRS. It also includes several useful functionalities that can be used in target production applications.
+A simple application with articles, whose aim is to demonstrate the clean architecture in PHP using CQRS.
+It also includes several useful functionalities that can be used in target production applications.
 
 ### Clean Architecture
 
