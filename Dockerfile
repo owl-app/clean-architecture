@@ -6,6 +6,7 @@ ARG GID=2432
 FROM php:${PHP_VERSION}-fpm-alpine${ALPINE_VERSION} as php_base
 
 RUN apk update --no-cache && apk add --no-cache \
+    acl \
     git \
     unzip \
     zip

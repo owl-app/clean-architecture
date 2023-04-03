@@ -9,9 +9,10 @@ fi
 
 if [ "$1" = 'php-fpm' ] || [ "$1" = 'bin/console' ]; then
 	mkdir -p apps/api/var/cache apps/api/var/log
+	setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX apps/api/var
 
 	if [ ! -e ".env.local" ]; then
-		cp .env .env.local
+		cp -p .env .env.local
 	fi
 
 	composer install
