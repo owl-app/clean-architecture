@@ -37,7 +37,7 @@ final class CollectionQuery implements CollectionQueryInterface
         return $this->requestParams;
     }
 
-    public function getMapper(): ? CollectionMapperInterface
+    public function getMapper(): ?CollectionMapperInterface
     {
         return $this->mapper;
     }

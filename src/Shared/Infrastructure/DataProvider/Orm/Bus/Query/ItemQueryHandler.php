@@ -14,7 +14,7 @@ class ItemQueryHandler implements ItemQueryHandlerInterface
     {
     }
 
-    public function __invoke(ItemQueryInterface $itemQuery): ? object
+    public function __invoke(ItemQueryInterface $itemQuery): ?object
     {
         /** @var object $data */
         $data = $this->itemDataProvider->get(

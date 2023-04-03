@@ -16,9 +16,9 @@ interface ItemQueryInterface extends QueryInterface
      */
     public function getModel(): string;
 
-    public function getType(): ? ItemTypeInterface;
+    public function getType(): ?ItemTypeInterface;
 
     public function getRequestParams(): RequestParamsInterface;
 
-    public function getMapper(): ? ItemMapperInterface;
+    public function getMapper(): ?ItemMapperInterface;
 }
