@@ -1,3 +1,5 @@
+.vscode/
+
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -15,10 +17,10 @@
 ###> phive/tools ###
 /tools/*
 !/tools/.gitkeep
+.php-cs-fixer.cache
+phpmd.xml
 ###< phive/tools ###
 
-.vscode/
-phpmd.xml
 ###> symfony/phpunit-bridge ###
 .phpunit.result.cache
 /phpunit.xml
