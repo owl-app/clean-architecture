@@ -35,6 +35,7 @@
     },
     "require-dev": {
         "phpspec/prophecy-phpunit": "^2.0",
+        "sylius-labs/coding-standard": "^4.3",
         "symfony/phpunit-bridge": "^6.2",
         "vimeo/psalm": "^5.8"
     },
@@ -42,7 +43,8 @@
         "allow-plugins": {
             "composer/package-versions-deprecated": true,
             "symfony/flex": true,
-            "symfony/runtime": true
+            "symfony/runtime": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
         },
         "optimize-autoloader": true,
         "preferred-install": {
