@@ -10,7 +10,9 @@ fi
 if [ "$1" = 'php-fpm' ] || [ "$1" = 'bin/console' ]; then
 	mkdir -p apps/api/var/cache apps/api/var/log
 
-	cp .env .env.local
+	if [ ! -e ".env.local" ]; then
+		cp .env .env.local
+	fi
 
 	composer install
 
