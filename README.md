@@ -28,6 +28,18 @@
 3. Execute docker compose up -d in your terminal and wait some time until the services will be ready
 4. Then you will have [API app](apps/api) docs available on http://localhost:8080/api/doc in your browser
 
+### Manualy
+```bash
+$ git clone git@github.com:owl-app/clean-architecture.git
+$ cd clean-architecture
+$ wget http://getcomposer.org/composer.phar
+$ php composer.phar install
+$ cp .env .env.local // setup DB
+$ php apps/api/bin/console doctrine:database:create
+$ php apps/api/bin/console doctrine:schema:create
+$ symfony serve --dir=apps/api/public --port=8080
+```
+
 ## Project details
 
 A simple application with articles, whose aim is to demonstrate the clean architecture in PHP using CQRS.
