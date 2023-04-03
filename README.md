@@ -19,9 +19,18 @@
 5. Serialization
 6. Validation
 
+## Installation
+
+### Docker
+
+1. Make sure you have installed Docker on your local machine
+2. Clone this project: git clone git@github.com:owl-app/clean-architecture.git
+3. Execute docker compose up -d in your favorite terminal and wait some time until the services will be ready.
+4. Then you will have [API docs](apps/api) abailable on http://localhost:8080/api/doc in your browser
+
 ## Project details
 
-A simple application with articles, whose aim is to demonstrate the clean architecture in PHP using CQRS.<br />
+A simple application with articles, whose aim is to demonstrate the clean architecture in PHP using CQRS.
 It also includes several useful functionalities that can be used in target production applications.
 
 ### Clean Architecture
