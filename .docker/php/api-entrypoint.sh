@@ -19,9 +19,8 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'bin/console' ]; then
 		sleep 1
 	done
 
-	apps/api/bin/console doctrine:database:drop --no-interaction --if-exists --force
-	apps/api/bin/console doctrine:database:create --no-interaction
-	apps/api/bin/console doctrine:schema:create --no-interaction
+	apps/api/bin/console doctrine:database:create --if-not-exists --no-interaction
+	apps/api/bin/console doctrine:schema:update --complete --force --no-interaction
 
 	apps/api/bin/console assets:install --no-interaction
 

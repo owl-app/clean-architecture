@@ -1,6 +1,5 @@
 ARG PHP_VERSION=8.1
 ARG ALPINE_VERSION=3.16
-ARG NODE_VERSION=16
 ARG NGINX_VERSION=1.23
 ARG GID=2432
 
@@ -35,16 +34,17 @@ RUN set -eux; \
 
 COPY . .
 
-COPY .docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
-RUN chmod +x /usr/local/bin/docker-entrypoint
+COPY .docker/php/api-entrypoint.sh /usr/local/bin/api-entrypoint
+RUN chmod +x /usr/local/bin/api-entrypoint
 
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint"]
+ENTRYPOINT ["/usr/local/bin/api-entrypoint"]
 CMD ["php-fpm"]
 
 
 FROM nginx:${NGINX_VERSION}-alpine AS owl_nginx
 
-COPY .docker/nginx/conf.d/default.conf /etc/nginx/conf.d/
+COPY .docker/nginx/conf.d/api.conf /etc/nginx/conf.d/
+RUN rm /etc/nginx/conf.d/default.conf
 
 WORKDIR /var/www
 
