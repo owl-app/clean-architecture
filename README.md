@@ -85,15 +85,15 @@ src
 |       |-- Model
 |       |   |-- Article.php
 |       |-- Repository
-|       |   |-- ArticleRepositoryInterface.php // Port of article repository
+|       |   |-- ArticleRepositoryInterface.php
 |    -- Infrastructure
 |       |-- DataProvider
-|       |   |-- ArticleCollectionDataProvider.php // Adapter data provider for list articles
-|       |   |-- ArticleItemDataProvider.php // Adapter data provider for single article
+|       |   |-- ArticleCollectionDataProvider.php // Implementation data provider for list articles
+|       |   |-- ArticleItemDataProvider.php // Implementation data provider for single article
 |       |-- Persistence
 |       |   |-- Doctrine
 |       |   |   |-- Article.orm.xml // Doctrine mapping entity article
-|       |   |-- ArticleRepository.php // Adapter of article repository
+|       |   |-- ArticleRepository.php
 |       |-- Serialize
 |       |   |-- Article.yaml // Serializer mapping article
 |       |-- Validate
@@ -109,18 +109,18 @@ src
 |-- Shared // Elements of application that are shared between various types of modules
 |    -- Application
 |       |-- Dto
-|       |   |-- RequestDtoInterface.php // Port DTO to auto resolve from request
+|       |   |-- RequestDtoInterface.php // DTO to auto resolve from request
 |    -- Domain
-|       |-- Bus // Ports for command and query bus
-|       |-- DataProvider // Ports and logic for collection/item data provider
-|       |-- Persistence // Ports DB
-|    -- Infrastructure
-|       |-- Bus // Adapter for command and query bus
-|       |-- DataProvider
-|       |-- |-- Orm // Adapter for Doctrine data providers
+|       |-- Bus
+|       |-- DataProvider // Logic for collection/item data provider
 |       |-- Persistence
-|       |   |-- Doctrine // Adapter for Doctrine elements (Repository etc)
-|       |-- Symfony // Adapter for various elements of application (e.g. Request DTO resolver)
+|    -- Infrastructure
+|       |-- Bus // Implementation for command and query bus
+|       |-- DataProvider
+|       |-- |-- Orm // Implementation for Doctrine data providers
+|       |-- Persistence
+|       |   |-- Doctrine // Implementations for Doctrine elements (Repository etc)
+|       |-- Symfony // Implementations for various elements of application (e.g. Request DTO resolver)
 ```
 ## Examples
 
