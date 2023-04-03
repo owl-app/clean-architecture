@@ -13,7 +13,7 @@ class NonExistingServiceException extends \InvalidArgumentException
             ucfirst($context),
             $type,
             $context,
-            implode('", "', $existingServices)
+            implode('", "', $existingServices),
         ));
     }
 }

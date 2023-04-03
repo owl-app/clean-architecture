@@ -52,14 +52,14 @@ final class StringFilter extends AbstractFilter
 
         if (self::TYPE_NOT_EQUAL === $type) {
             $queryBuilder->andWhere(
-                $queryBuilder->expr()->andX(...$expressions)
+                $queryBuilder->expr()->andX(...$expressions),
             );
 
             return;
         }
 
         $queryBuilder->andWhere(
-            $queryBuilder->expr()->orX(...$expressions)
+            $queryBuilder->expr()->orX(...$expressions),
         );
     }
 

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Owl\Article\Infrastructure\Persistence;
 
-use Owl\Article\Domain\Model\Article;
-use Owl\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
-use Owl\Article\Domain\Repository\ArticleRepositoryInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Owl\Article\Domain\Model\Article;
+use Owl\Article\Domain\Repository\ArticleRepositoryInterface;
+use Owl\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 
 final class ArticleRepository extends DoctrineRepository implements ArticleRepositoryInterface
 {

@@ -10,7 +10,7 @@ final class Article extends AbstractBaseEntity
 {
     public function __construct(
         private string $title,
-        private string $description
+        private string $description,
     ) {
     }
 
@@ -24,8 +24,8 @@ final class Article extends AbstractBaseEntity
     public function toPrimitives(): array
     {
         return [
-            'id'       => $this->id,
-            'title'     => $this->title,
+            'id' => $this->id,
+            'title' => $this->title,
             'description' => $this->description,
         ];
     }

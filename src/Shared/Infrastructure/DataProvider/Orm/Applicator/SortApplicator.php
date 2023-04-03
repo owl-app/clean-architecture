@@ -10,10 +10,10 @@ use Owl\Shared\Domain\DataProvider\Builder\SortBuilder;
 use Owl\Shared\Domain\DataProvider\Builder\SortBuilderInterface;
 use Owl\Shared\Domain\DataProvider\Registry\BuilderRegistryInterface;
 use Owl\Shared\Domain\DataProvider\Request\CollectionRequestParamsInterface;
+use Owl\Shared\Domain\DataProvider\Type\CollectionTypeInterface;
 use Owl\Shared\Domain\DataProvider\Validation\SortingParametersValidator;
 use Owl\Shared\Domain\DataProvider\Validation\SortingParametersValidatorInterface;
 use Owl\Shared\Infrastructure\DataProvider\Orm\Resolver\FieldResolverInterface;
-use Owl\Shared\Domain\DataProvider\Type\CollectionTypeInterface;
 
 class SortApplicator implements CollectionApplicatorInterface, BuilderAwareInterface
 {
@@ -32,7 +32,7 @@ class SortApplicator implements CollectionApplicatorInterface, BuilderAwareInter
         $builderRegistry->add($this->builder->getName(), $this->builder);
     }
 
-    public function applyToCollection(QueryBuilder $queryBuilder, CollectionTypeInterface $collectionType, CollectionRequestParamsInterface $collectionRequestParams) : void
+    public function applyToCollection(QueryBuilder $queryBuilder, CollectionTypeInterface $collectionType, CollectionRequestParamsInterface $collectionRequestParams): void
     {
         $orderByDqlPart = $queryBuilder->getDQLPart('orderBy');
         if (\is_array($orderByDqlPart) && \count($orderByDqlPart) > 0) {
@@ -43,9 +43,9 @@ class SortApplicator implements CollectionApplicatorInterface, BuilderAwareInter
 
         $sorts = $this->builder->getSorting();
 
-        if($sorts) {
-            foreach($sorts as $property => $sort) {
-                if($this->sortingValidator->validateSortingParameters($this->builder->getAvailable(), $property, $sort)) {
+        if ($sorts) {
+            foreach ($sorts as $property => $sort) {
+                if ($this->sortingValidator->validateSortingParameters($this->builder->getAvailable(), $property, $sort)) {
                     $field = $this->fieldResolver->resolveFieldByAddingJoins($queryBuilder, $property);
                     $queryBuilder->addOrderBy($field, $sort);
                 }

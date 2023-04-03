@@ -18,7 +18,7 @@ final class Utils
             return true;
         }
 
-        return (substr($haystack, -$length) === $needle);
+        return substr($haystack, -$length) === $needle;
     }
 
     public static function dateToString(DateTimeInterface $date): string
@@ -33,14 +33,14 @@ final class Utils
 
     public static function jsonEncode(array $values): string
     {
-        return json_encode($values, JSON_THROW_ON_ERROR);
+        return json_encode($values, \JSON_THROW_ON_ERROR);
     }
 
     public static function jsonDecode(string $json): array
     {
         $data = json_decode($json, true);
 
-        if (JSON_ERROR_NONE !== json_last_error()) {
+        if (\JSON_ERROR_NONE !== json_last_error()) {
             throw new RuntimeException('Unable to parse response body into JSON: ' . json_last_error());
         }
 
@@ -52,7 +52,7 @@ final class Utils
      */
     public static function toSnakeCase(string $text): string
     {
-        return ctype_lower($text) ? $text : strtolower((string) preg_replace('/([^A-Z\s])([A-Z])/', "$1_$2", $text));
+        return ctype_lower($text) ? $text : strtolower((string) preg_replace('/([^A-Z\s])([A-Z])/', '$1_$2', $text));
     }
 
     public static function toCamelCase(string $text): string

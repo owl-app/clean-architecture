@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Owl\Shared\Domain\DataProvider\Builder;
 
 use Owl\Shared\Domain\DataProvider\Exception\InvalidArgumentException;
@@ -27,7 +29,7 @@ class FilterBuilder implements FilterBuilderInterface
     public function __construct(
         private readonly FilterRegistryInterface $registry,
         private readonly array $defaultParameters,
-        private readonly array $queryParams
+        private readonly array $queryParams,
     ) {
         $this->paramName = $defaultParameters['param_name'] ?? 'filters';
     }
@@ -51,16 +53,16 @@ class FilterBuilder implements FilterBuilderInterface
 
     public function getDataFilters(): array
     {
-       if (isset($this->queryParams[$this->paramName])) {
-          return $this->queryParams[$this->paramName];
-       }
- 
-       return [];
+        if (isset($this->queryParams[$this->paramName])) {
+            return $this->queryParams[$this->paramName];
+        }
+
+        return [];
     }
 
     public function add(string $name = null, string $filter, string|array $fields = null, array $options = []): self
     {
-        if (is_null($fields)) {
+        if (null === $fields) {
             $filterFields = [$name];
         } else {
             $filterFields = is_string($fields) ? [$fields] : $fields;
@@ -97,7 +99,7 @@ class FilterBuilder implements FilterBuilderInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function all(): array
     {
@@ -106,9 +108,6 @@ class FilterBuilder implements FilterBuilderInterface
         return $this->children;
     }
 
-    /**
-     * @return int
-     */
     #[\ReturnTypeWillChange]
     public function count(): int
     {
@@ -133,7 +132,7 @@ class FilterBuilder implements FilterBuilderInterface
                 /**
                  * @var FilterInterface $filterService
                  */
-                $filterService = new $classFilter;
+                $filterService = new $classFilter();
                 $filterService->setName($name);
                 $filterService->setFields($info[1]);
                 $filterService->setOptions($info[2]);

@@ -6,7 +6,6 @@ namespace Owl\Article\Infrastructure\DataProvider;
 
 use Doctrine\ORM\QueryBuilder;
 use Owl\Shared\Infrastructure\DataProvider\Orm\Type\AbstractItemType;
-use Owl\Shared\Infrastructure\DataProvider\Orm\Type\BuildableQueryBuilderInterface;
 
 final class ArticleItemDataProvider extends AbstractItemType
 {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Owl\Shared\Domain\DataProvider\Builder;
 
 class SortBuilder implements SortBuilderInterface
@@ -44,10 +46,10 @@ class SortBuilder implements SortBuilderInterface
 
     public function getSorting(): array
     {
-       if (isset($this->queryParams[$this->paramName]) && is_array($this->queryParams[$this->paramName])) {
-          return $this->queryParams[$this->paramName];
-       }
- 
-       return [];
+        if (isset($this->queryParams[$this->paramName]) && is_array($this->queryParams[$this->paramName])) {
+            return $this->queryParams[$this->paramName];
+        }
+
+        return [];
     }
 }

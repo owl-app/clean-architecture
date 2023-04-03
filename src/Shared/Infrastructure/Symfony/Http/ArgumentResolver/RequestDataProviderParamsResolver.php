@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 class RequestDataProviderParamsResolver implements ValueResolverInterface
 {
     public function __construct(
-        private readonly RequestParamsFactoryInterface $requestParamsFactory
+        private readonly RequestParamsFactoryInterface $requestParamsFactory,
     ) {
     }
 
@@ -26,7 +26,7 @@ class RequestDataProviderParamsResolver implements ValueResolverInterface
         $request = $this->requestParamsFactory->create(
             $argument->getType(),
             $request->attributes->get('data_provider', []),
-            array_merge($request->query->all(), $request->attributes->get('_route_params', []))
+            array_merge($request->query->all(), $request->attributes->get('_route_params', [])),
         );
 
         yield $request;

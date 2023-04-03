@@ -26,17 +26,17 @@ class CollectionQueryHandler implements CollectionQueryHandlerInterface
         $data = $this->collectionDataProvider->get(
             $collectionQuery->getModel(),
             $collectionQuery->getType(),
-            $collectionQuery->getRequestParams()
+            $collectionQuery->getRequestParams(),
         );
         $mapper = $collectionQuery->getMapper();
         /** @var Traversable|null $mappedData */
         $mappedData = null;
 
-        if(!is_null($mapper)) {
+        if (null !== $mapper) {
             $mappedData = $mapper->toResponse($data);
         }
 
-        if($data instanceof PaginatorInterface) {
+        if ($data instanceof PaginatorInterface) {
             return new CollectionPaginatedData($data, $mappedData);
         }
 

@@ -13,29 +13,27 @@ class IdentifiersApplicator implements ItemApplicatorInterface
 {
     public function __construct(private readonly FieldResolverInterface $fieldResolver)
     {
-        
     }
 
     public function applyToItem(QueryBuilder $queryBuilder, ?ItemTypeInterface $itemType, RequestParamsInterface $requestParams, string $dataClass): void
     {
         $queryParams = $requestParams->getQueryParams();
-        $identifiers = !is_null($itemType) ? $itemType->getIdentifiers() : [];
+        $identifiers = null !== $itemType ? $itemType->getIdentifiers() : [];
 
-        if($itemType || count($identifiers) === 0) {
+        if ($itemType || count($identifiers) === 0) {
             $classMetaData = $queryBuilder->getEntityManager()->getClassMetadata($dataClass);
             $identifiers = $classMetaData->getIdentifier();
         }
 
-        foreach($identifiers as $identifier => $param)
-        {
-            if(is_int($identifier)) {
+        foreach ($identifiers as $identifier => $param) {
+            if (is_int($identifier)) {
                 $identifier = $param;
             }
 
-            if(isset($queryParams[$param])) {
+            if (isset($queryParams[$param])) {
                 $field = $this->fieldResolver->resolveFieldByAddingJoins($queryBuilder, $identifier);
                 $queryBuilder->andWhere($field . ' = :' . $identifier);
-                $queryBuilder->setParameter(':'.$identifier, $queryParams[$identifier]);
+                $queryBuilder->setParameter(':' . $identifier, $queryParams[$identifier]);
             }
         }
     }

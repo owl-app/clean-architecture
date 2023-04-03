@@ -16,7 +16,7 @@ final class CollectionDataProvider implements CollectionDataProviderInterface
 {
     public function __construct(
         private readonly QueryBuilderFactoryInterface $queryBuildeFactory,
-        private readonly iterable $applicators
+        private readonly iterable $applicators,
     ) {
     }
 
@@ -25,8 +25,8 @@ final class CollectionDataProvider implements CollectionDataProviderInterface
         $queryBuilder = $this->queryBuildeFactory->create($dataClass, $dataProviderType);
         $builderRegistry = new BuilderRegistry();
 
-        foreach($this->applicators as $applicator) {
-            if($applicator instanceof BuilderAwareInterface) {
+        foreach ($this->applicators as $applicator) {
+            if ($applicator instanceof BuilderAwareInterface) {
                 $applicator->setBuilder($builderRegistry, $dataProviderType, $collectionRequestParams);
             }
 

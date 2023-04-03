@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace Owl\Shared\Domain\DataProvider\Data;
+
 class CollectionData implements CollectionDataInterface
 {
     public iterable $data;

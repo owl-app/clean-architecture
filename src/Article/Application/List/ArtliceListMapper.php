@@ -19,7 +19,7 @@ final class ArtliceListMapper implements CollectionMapperInterface
     {
         return static fn (Article $article) => new ArticleResponse(
             $article->getId(),
-            $article->getTitle()
+            $article->getTitle(),
         );
     }
 }

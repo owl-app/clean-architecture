@@ -6,5 +6,5 @@ namespace Owl\Shared\Domain\DataProvider\Validation;
 
 interface PaginationParametersValidatorInterface
 {
-    public function validatePaginationParameters(int $offset, int $limit, int $page, array $allowedPerPage ): void;
+    public function validatePaginationParameters(int $offset, int $limit, int $page, array $allowedPerPage): void;
 }

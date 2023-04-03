@@ -8,7 +8,7 @@ use Owl\Shared\Domain\DataProvider\Exception\InvalidArgumentException;
 
 final class PaginationParametersValidator implements PaginationParametersValidatorInterface
 {
-    public function validatePaginationParameters(int $offset, int $limit, int $page, array $allowedPerPage ): void
+    public function validatePaginationParameters(int $offset, int $limit, int $page, array $allowedPerPage): void
     {
         if (0 === $limit && 1 < $page) {
             throw new InvalidArgumentException('Page should not be greater than 1 if limit is equal to 0');
@@ -19,7 +19,7 @@ final class PaginationParametersValidator implements PaginationParametersValidat
         }
 
         if (!in_array($limit, $allowedPerPage)) {
-            throw new InvalidArgumentException(\sprintf('Not allowed per page, available: %s', implode(',',$allowedPerPage)));
+            throw new InvalidArgumentException(\sprintf('Not allowed per page, available: %s', implode(',', $allowedPerPage)));
         }
     }
 }

@@ -14,7 +14,7 @@ final class ItemDataProvider implements ItemDataProviderInterface
 {
     public function __construct(
         private readonly QueryBuilderFactoryInterface $queryBuildeFactory,
-        private readonly iterable $applicators
+        private readonly iterable $applicators,
     ) {
     }
 
@@ -22,7 +22,7 @@ final class ItemDataProvider implements ItemDataProviderInterface
     {
         $queryBuilder = $this->queryBuildeFactory->create($dataClass, $itemProviderType);
 
-        foreach($this->applicators as $applicator) {
+        foreach ($this->applicators as $applicator) {
             $applicator->applyToItem($queryBuilder, $itemProviderType, $itemRequestParams, $dataClass);
 
             if ($applicator instanceof ItemResultableApplicatorInterface && $applicator->supportsResult($itemProviderType, $itemRequestParams)) {

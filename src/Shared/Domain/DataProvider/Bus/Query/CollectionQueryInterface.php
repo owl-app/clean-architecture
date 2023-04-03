@@ -16,9 +16,9 @@ interface CollectionQueryInterface extends QueryInterface
      */
     public function getModel(): string;
 
-    public function getType():? CollectionTypeInterface;
+    public function getType(): ? CollectionTypeInterface;
 
     public function getRequestParams(): CollectionRequestParamsInterface;
 
-    public function getMapper():? CollectionMapperInterface;
+    public function getMapper(): ? CollectionMapperInterface;
 }

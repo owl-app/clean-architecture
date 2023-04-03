@@ -11,9 +11,9 @@ use Owl\Shared\Domain\DataProvider\Registry\BuilderRegistry;
 use Owl\Shared\Domain\DataProvider\Registry\FilterRegistry;
 use Owl\Shared\Domain\DataProvider\Registry\FilterRegistryInterface;
 use Owl\Shared\Domain\DataProvider\Request\CollectionRequestParamsInterface;
-use Owl\Shared\Infrastructure\DataProvider\Orm\Resolver\FieldResolverInterface;
 use Owl\Shared\Domain\DataProvider\Type\CollectionTypeInterface;
 use Owl\Shared\Infrastructure\DataProvider\Orm\Applicator\FilterApplicator;
+use Owl\Shared\Infrastructure\DataProvider\Orm\Resolver\FieldResolverInterface;
 use Owl\Tests\Fixtures\DummyDataProvider;
 use Owl\Tests\Fixtures\DummyFilter;
 use PHPUnit\Framework\TestCase;
@@ -36,13 +36,13 @@ class FilterApplicatorTest extends TestCase
 
         $filterApplicator = new FilterApplicator(
             $fieldResolverProphecy->reveal(),
-            $filterRegistryProphecy->reveal()
+            $filterRegistryProphecy->reveal(),
         );
 
         $filterApplicator->setBuilder(
             $builderRegistry,
             $collectionTypeProphecy->reveal(),
-            $collectionRequestParamsProphecy->reveal()
+            $collectionRequestParamsProphecy->reveal(),
         );
 
         $this->assertEquals(true, $builderRegistry->has(FilterBuilderInterface::NAME));
@@ -61,12 +61,12 @@ class FilterApplicatorTest extends TestCase
         $filterRegistry->register(DummyFilter::class, $filterProphecy);
         $fieldResolver = $this->prophesize(FieldResolverInterface::class);
         $collectionType = new DummyDataProvider(['filters' => [
-            ['name' => 'filterName', 'filter' => DummyFilter::class, 'fields' => ['field1']]]
+            ['name' => 'filterName', 'filter' => DummyFilter::class, 'fields' => ['field1']]],
         ]);
         $collectionRequestParams = $this->prophesize(CollectionRequestParamsInterface::class);
 
         $collectionRequestParams->getDefaultFiltering()->willReturn(['param_filter_name' => 'filters'])->shouldBeCalled();
-        $collectionRequestParams->getQueryParams()->willReturn(['filters'=> ['filterName'=> ['field1'=>'test']]])->shouldBeCalled();
+        $collectionRequestParams->getQueryParams()->willReturn(['filters' => ['filterName' => ['field1' => 'test']]])->shouldBeCalled();
 
         $fieldResolver->resolveFieldByAddingJoins($queryBuilder, 'field1')->willReturn('alias1.field1')->shouldBeCalled();
 
@@ -77,7 +77,7 @@ class FilterApplicatorTest extends TestCase
         $filterBuilder = $builderRegistry->get(FilterBuilderInterface::NAME);
         $filterAfterBuild = $filterBuilder->get('filterName');
 
-        $this->assertEquals(['filterName'=> ['field1'=>'test']], $filterBuilder->getDataFilters());
+        $this->assertEquals(['filterName' => ['field1' => 'test']], $filterBuilder->getDataFilters());
         $this->assertEquals(true, $filterBuilder->has('filterName'));
         $this->assertEquals('filterName', $filterAfterBuild->getName());
         $this->assertEquals(['field1'], $filterAfterBuild->getFields());
@@ -92,7 +92,7 @@ class FilterApplicatorTest extends TestCase
             ucfirst('filter'),
             DummyFilter::class,
             'filter',
-            ''
+            '',
         ));
 
         $queryBuilderProphecy = $this->prophesize(QueryBuilder::class);
@@ -103,12 +103,12 @@ class FilterApplicatorTest extends TestCase
         $filterRegistry = new FilterRegistry('Owl\Shared\Domain\DataProvider\Filter\FilterInterface');
         $fieldResolver = $this->prophesize(FieldResolverInterface::class);
         $collectionType = new DummyDataProvider(['filters' => [
-            ['name' => 'filterName', 'filter' => DummyFilter::class, 'fields' => ['field1']]]
+            ['name' => 'filterName', 'filter' => DummyFilter::class, 'fields' => ['field1']]],
         ]);
         $collectionRequestParams = $this->prophesize(CollectionRequestParamsInterface::class);
 
         $collectionRequestParams->getDefaultFiltering()->willReturn(['param_filter_name' => 'filters'])->shouldBeCalled();
-        $collectionRequestParams->getQueryParams()->willReturn(['filters'=> ['filterName'=> ['field1'=>'test']]])->shouldBeCalled();
+        $collectionRequestParams->getQueryParams()->willReturn(['filters' => ['filterName' => ['field1' => 'test']]])->shouldBeCalled();
 
         $fieldResolver->resolveFieldByAddingJoins($queryBuilder, 'field1')->willReturn('alias1.field1')->shouldNotBeCalled();
 
@@ -130,7 +130,7 @@ class FilterApplicatorTest extends TestCase
         $collectionRequestParams = $this->prophesize(CollectionRequestParamsInterface::class);
 
         $collectionRequestParams->getDefaultFiltering()->willReturn(['param_filter_name' => 'filters'])->shouldBeCalled();
-        $collectionRequestParams->getQueryParams()->willReturn(['filters'=> ['filterName'=> ['field1'=>'test']]])->shouldBeCalled();
+        $collectionRequestParams->getQueryParams()->willReturn(['filters' => ['filterName' => ['field1' => 'test']]])->shouldBeCalled();
 
         $fieldResolver->resolveFieldByAddingJoins($queryBuilder, 'field1')->willReturn('alias1.field1')->shouldNotBeCalled();
 
@@ -157,7 +157,7 @@ class FilterApplicatorTest extends TestCase
         $filterRegistry->register(DummyFilter::class, $filterProphecy);
         $fieldResolver = $this->prophesize(FieldResolverInterface::class);
         $collectionType = new DummyDataProvider(['filters' => [
-            ['name' => 'filterName', 'filter' => DummyFilter::class, 'fields' => ['field1']]]
+            ['name' => 'filterName', 'filter' => DummyFilter::class, 'fields' => ['field1']]],
         ]);
         $collectionRequestParams = $this->prophesize(CollectionRequestParamsInterface::class);
 

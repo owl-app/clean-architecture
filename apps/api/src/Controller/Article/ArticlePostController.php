@@ -14,30 +14,30 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 final class ArticlePostController extends ApiController
 {
     #[OA\Post(
-        summary: "Update article",
+        summary: 'Update article',
         requestBody: new OA\RequestBody(
             content: new OA\JsonContent(
                 required: ['title', 'description'],
                 properties: [
                     new OA\Property(
-                        property: "title",
-                        type: "string",
-                        description: "Article title",
-                        format: 'text'
+                        property: 'title',
+                        type: 'string',
+                        description: 'Article title',
+                        format: 'text',
                     ),
                     new OA\Property(
-                        property: "description",
-                        type: "string",
-                        description: "Article description",
-                        format: 'text'
+                        property: 'description',
+                        type: 'string',
+                        description: 'Article description',
+                        format: 'text',
                     ),
-                ]
-            )
-        )
+                ],
+            ),
+        ),
     )]
     #[OA\Response(
         response: 200,
-        description: 'Successful response'
+        description: 'Successful response',
     )]
     #[OA\Tag(name: 'Articles', description: 'Articles in system')]
     public function __invoke(CreateArticleRequest $createArticleRequest, ArticleCreator $articleCreator): JsonResponse
@@ -47,8 +47,8 @@ final class ArticlePostController extends ApiController
         $this->dispatch(
             new SendEmailNewArticle(
                 $createArticleRequest->getTitle(),
-                $createArticleRequest->getDescription()
-            )
+                $createArticleRequest->getDescription(),
+            ),
         );
 
         return $this->responseCreated($article);

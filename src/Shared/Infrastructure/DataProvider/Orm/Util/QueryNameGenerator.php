@@ -17,18 +17,15 @@ use Owl\Shared\Domain\DataProvider\Util\QueryNameGeneratorInterface;
 
 /**
  * Utility functions for working with Doctrine ORM query.
- *
- * @author Teoh Han Hui <teohhanhui@gmail.com>
- * @author Vincent Chalamon <vincentchalamon@gmail.com>
- * @author Amrouche Hamza <hamza.simperfit@gmail.com>
  */
 final class QueryNameGenerator implements QueryNameGeneratorInterface
 {
     private int $incrementedAssociation = 1;
+
     private int $incrementedName = 1;
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function generateJoinAlias(string $association): string
     {
@@ -36,7 +33,7 @@ final class QueryNameGenerator implements QueryNameGeneratorInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function generateParameterName(string $name): string
     {

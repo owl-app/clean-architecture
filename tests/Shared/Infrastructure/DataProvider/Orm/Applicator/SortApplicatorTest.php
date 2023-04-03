@@ -6,26 +6,24 @@ namespace Owl\Shared\Infrastructure\DataProvider\Orm\Applicator;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\ORM\Query\Expr\OrderBy as ExprOrderBy;
-use Doctrine\ORM\Query\Expr\Join as ExprJoin;
 use Doctrine\ORM\Query\Expr\From as ExprFrom;
+use Doctrine\ORM\Query\Expr\Join as ExprJoin;
+use Doctrine\ORM\Query\Expr\OrderBy as ExprOrderBy;
 use Doctrine\ORM\QueryBuilder;
 use Owl\Shared\Domain\DataProvider\Builder\SortBuilderInterface;
 use Owl\Shared\Domain\DataProvider\Registry\BuilderRegistry;
 use Owl\Shared\Domain\DataProvider\Request\CollectionRequestParamsInterface;
-use Owl\Shared\Domain\DataProvider\Validation\SortingParametersValidatorInterface;
-use Owl\Shared\Infrastructure\DataProvider\Orm\Resolver\FieldResolverInterface;
 use Owl\Shared\Domain\DataProvider\Type\CollectionTypeInterface;
+use Owl\Shared\Domain\DataProvider\Validation\SortingParametersValidatorInterface;
 use Owl\Shared\Infrastructure\DataProvider\Orm\Resolver\FieldResolver;
+use Owl\Shared\Infrastructure\DataProvider\Orm\Resolver\FieldResolverInterface;
 use Owl\Tests\Fixtures\DummyDataProvider;
-use Owl\Tests\Fixtures\Entity\Dummy;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 
 class SortApplicatorTest extends TestCase
 {
     use ProphecyTrait;
-
 
     public function testSetBuilderAddsBuilderToRegistr(): void
     {
@@ -42,7 +40,7 @@ class SortApplicatorTest extends TestCase
         $filterApplicator->setBuilder(
             $builderRegistry,
             $collectionTypeProphecy->reveal(),
-            $collectionRequestParamsProphecy->reveal()
+            $collectionRequestParamsProphecy->reveal(),
         );
 
         $this->assertEquals(true, $builderRegistry->has(SortBuilderInterface::NAME));
@@ -55,7 +53,7 @@ class SortApplicatorTest extends TestCase
     {
         $queryBuilderProphecy = $this->prophesize(QueryBuilder::class);
         $queryBuilderProphecy->getDQLPart('orderBy')->shouldBeCalled()->willReturn([]);
-        $queryBuilderProphecy->addOrderBy('o.'.$field, $sort)->shouldBeCalled();
+        $queryBuilderProphecy->addOrderBy('o.' . $field, $sort)->shouldBeCalled();
         $queryBuilder = $queryBuilderProphecy->reveal();
 
         $builderRegistry = new BuilderRegistry();
@@ -69,7 +67,7 @@ class SortApplicatorTest extends TestCase
         $collectionRequestParams->getQueryParams()->willReturn($queryParams)->shouldBeCalled();
 
         $sortingParametersValidatorProphecy->validateSortingParameters([$field], $field, $sort)->willReturn(true)->shouldBeCalled();
-        $fieldResolver->resolveFieldByAddingJoins($queryBuilder, $field)->willReturn('o.'.$field)->shouldBeCalled();
+        $fieldResolver->resolveFieldByAddingJoins($queryBuilder, $field)->willReturn('o.' . $field)->shouldBeCalled();
 
         $applicator = new SortApplicator($fieldResolver->reveal(), $sortingParametersValidatorProphecy->reveal());
         $applicator->setBuilder($builderRegistry, $collectionType, $collectionRequestParams->reveal());
@@ -79,7 +77,7 @@ class SortApplicatorTest extends TestCase
 
         $this->assertEquals($confgiSorting['param_name'] ?? 'sort', $sortBuilder->getParamName());
         $this->assertEquals([$field], $sortBuilder->getAvailable());
-        $this->assertEquals([$field=> $sort], $sortBuilder->getSorting());
+        $this->assertEquals([$field => $sort], $sortBuilder->getSorting());
     }
 
     public function getValidConfig(): array
@@ -89,20 +87,20 @@ class SortApplicatorTest extends TestCase
                 'field',
                 'asc',
                 [],
-                ['sort'=> ['field'=> 'asc']]
+                ['sort' => ['field' => 'asc']],
             ],
             'with config' => [
                 'field',
                 'asc',
                 ['param_name' => 'sort_test'],
-                ['sort_test'=> ['field'=> 'asc']]
+                ['sort_test' => ['field' => 'asc']],
             ],
             'with config and directoion desc' => [
                 'field',
                 'desc',
                 ['param_name' => 'sort_test'],
-                ['sort_test'=> ['field'=> 'desc']]
-            ]
+                ['sort_test' => ['field' => 'desc']],
+            ],
         ];
     }
 
@@ -113,19 +111,19 @@ class SortApplicatorTest extends TestCase
     {
         $queryBuilderProphecy = $this->prophesize(QueryBuilder::class);
         $queryBuilderProphecy->getDQLPart('orderBy')->shouldBeCalled()->willReturn([]);
-        $queryBuilderProphecy->addOrderBy('o.'.$field, $sort)->shouldNotBeCalled();
+        $queryBuilderProphecy->addOrderBy('o.' . $field, $sort)->shouldNotBeCalled();
         $queryBuilder = $queryBuilderProphecy->reveal();
 
         $builderRegistry = new BuilderRegistry();
         $collectionType = new DummyDataProvider(['sort' => ['available' => [$field]]]);
 
         $fieldResolver = $this->prophesize(FieldResolverInterface::class);
-        
+
         $collectionRequestParams = $this->prophesize(CollectionRequestParamsInterface::class);
         $collectionRequestParams->getDefaultSorting()->willReturn($confgiSorting)->shouldBeCalled();
         $collectionRequestParams->getQueryParams()->willReturn($queryParams)->shouldBeCalled();
 
-        $fieldResolver->resolveFieldByAddingJoins($queryBuilder, $field)->willReturn('o.'.$field)->shouldNotBeCalled();
+        $fieldResolver->resolveFieldByAddingJoins($queryBuilder, $field)->willReturn('o.' . $field)->shouldNotBeCalled();
 
         $applicator = new SortApplicator($fieldResolver->reveal());
         $applicator->setBuilder($builderRegistry, $collectionType, $collectionRequestParams->reveal());
@@ -144,26 +142,26 @@ class SortApplicatorTest extends TestCase
                 'field',
                 'asc',
                 ['param_name' => 'sort_test'],
-                ['sort'=> ['field'=> 'asc']]
+                ['sort' => ['field' => 'asc']],
             ],
             'with invalid direction' => [
                 'field',
                 'desc',
                 ['param_name' => 'sort'],
-                ['sort'=> ['field'=> 'desc_invalid']]
+                ['sort' => ['field' => 'desc_invalid']],
             ],
             'with invalid no direction' => [
                 'field',
                 '',
                 ['param_name' => 'sort'],
-                ['sort'=> ['field'=> '']]
+                ['sort' => ['field' => '']],
             ],
             'with not available field' => [
                 'field',
                 'desc',
                 ['param_name' => 'sort'],
-                ['sort'=> ['field_test'=> 'desc']]
-            ]
+                ['sort' => ['field_test' => 'desc']],
+            ],
         ];
     }
 
@@ -188,7 +186,7 @@ class SortApplicatorTest extends TestCase
 
         $classMetadataProphecy = $this->prophesize(ClassMetadata::class);
         $classMetadataProphecy->getAssociationMapping('test')->willReturn([
-            'targetEntity'=>'targetEntity'
+            'targetEntity' => 'targetEntity',
         ]);
 
         $emProphecy = $this->prophesize(EntityManager::class);
@@ -205,7 +203,7 @@ class SortApplicatorTest extends TestCase
         $builderRegistry = new BuilderRegistry();
         $fieldResolver = new FieldResolver();
         $collectionType = new DummyDataProvider(['sort' => ['available' => ['test_a1.description']]]);
-        
+
         $collectionRequestParams = $this->prophesize(CollectionRequestParamsInterface::class);
         $collectionRequestParams->getDefaultSorting()->willReturn([])->shouldBeCalled();
         $collectionRequestParams->getQueryParams()->willReturn(['sort' => ['test_a1.description' => 'asc']])->shouldBeCalled();
@@ -237,7 +235,7 @@ class SortApplicatorTest extends TestCase
         $builderRegistry = new BuilderRegistry();
         $fieldResolver = new FieldResolver();
         $collectionType = new DummyDataProvider(['sort' => ['available' => ['description']]]);
-        
+
         $collectionRequestParams = $this->prophesize(CollectionRequestParamsInterface::class);
         $sortingParametersValidatorProphecy = $this->prophesize(SortingParametersValidatorInterface::class);
 

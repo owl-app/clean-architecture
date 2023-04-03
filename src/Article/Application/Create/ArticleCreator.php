@@ -10,7 +10,7 @@ use Owl\Article\Domain\Repository\ArticleRepositoryInterface;
 final class ArticleCreator
 {
     public function __construct(
-        private readonly ArticleRepositoryInterface $repository
+        private readonly ArticleRepositoryInterface $repository,
     ) {
     }
 

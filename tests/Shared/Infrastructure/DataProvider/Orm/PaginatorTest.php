@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Owl\Tests\Shared\Infrastructure\DataProvider\Orm;
 
+use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
 use Owl\Shared\Domain\DataProvider\Exception\InvalidArgumentException;
 use Owl\Shared\Infrastructure\DataProvider\Orm\Paginator;
 use Owl\Tests\Fixtures\Query;
-use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 

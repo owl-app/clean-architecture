@@ -18,7 +18,7 @@ final class CollectionQuery implements CollectionQueryInterface
         private string $model,
         private CollectionTypeInterface $type,
         private CollectionRequestParamsInterface $requestParams,
-        private ?CollectionMapperInterface $mapper = null
+        private ?CollectionMapperInterface $mapper = null,
     ) {
     }
 
@@ -37,7 +37,7 @@ final class CollectionQuery implements CollectionQueryInterface
         return $this->requestParams;
     }
 
-    public function getMapper():? CollectionMapperInterface
+    public function getMapper(): ? CollectionMapperInterface
     {
         return $this->mapper;
     }

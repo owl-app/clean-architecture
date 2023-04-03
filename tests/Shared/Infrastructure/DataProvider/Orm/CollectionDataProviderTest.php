@@ -27,20 +27,20 @@ class CollectionDataProviderTest extends TestCase
         $queryBuilderFactoryProphecy = $this->prophesize(QueryBuilderFactoryInterface::class);
         $collectionTypeProphecy = $this->prophesize(CollectionTypeInterface::class)->reveal();
         $collectionRequestParamsProphecy = $this->prophesize(CollectionRequestParamsInterface::class)->reveal();
-        
+
         $queryProphecy = $this->prophesize(AbstractQuery::class);
         $queryProphecy->getResult()->willReturn([])->shouldBeCalled();
 
         $queryBuilderProphecy = $this->prophesize(QueryBuilder::class);
         $queryBuilderProphecy->getQuery()->willReturn($queryProphecy->reveal());
         $queryBuilder = $queryBuilderProphecy->reveal();
-        
+
         $queryBuilderFactoryProphecy->create('DataClass', $collectionTypeProphecy)->willReturn($queryBuilder);
 
         // create prophecies for the applicators
         $applicatorProphcy = $this->prophesize(CollectionApplicatorInterface::class);
         $applicatorProphcy->applyToCollection($queryBuilder, $collectionTypeProphecy, $collectionRequestParamsProphecy)->shouldBeCalled();
-    
+
         // create the object under test
         $collectionDataProvider = new CollectionDataProvider($queryBuilderFactoryProphecy->reveal(), [$applicatorProphcy->reveal()]);
 
@@ -56,22 +56,22 @@ class CollectionDataProviderTest extends TestCase
         $queryBuilderFactoryProphecy = $this->prophesize(QueryBuilderFactoryInterface::class);
         $collectionTypeProphecy = $this->prophesize(CollectionTypeInterface::class)->reveal();
         $collectionRequestParamsProphecy = $this->prophesize(CollectionRequestParamsInterface::class)->reveal();
-        
+
         $queryProphecy = $this->prophesize(AbstractQuery::class);
         $queryProphecy->getResult()->willReturn([])->shouldBeCalled();
 
         $queryBuilderProphecy = $this->prophesize(QueryBuilder::class);
         $queryBuilderProphecy->getQuery()->willReturn($queryProphecy->reveal());
         $queryBuilder = $queryBuilderProphecy->reveal();
-        
+
         $queryBuilderFactoryProphecy->create('DataClass', $collectionTypeProphecy)->willReturn($queryBuilder);
 
         // create prophecies for the applicators
         $applicatorProphcy = $this->prophesize(CollectionApplicatorInterface::class);
         $applicatorProphcy->willImplement(BuilderAwareInterface::class);
-        $applicatorProphcy->setBuilder(Argument::type(BuilderRegistryInterface::class), $collectionTypeProphecy , $collectionRequestParamsProphecy)->shouldBeCalled();
+        $applicatorProphcy->setBuilder(Argument::type(BuilderRegistryInterface::class), $collectionTypeProphecy, $collectionRequestParamsProphecy)->shouldBeCalled();
         $applicatorProphcy->applyToCollection($queryBuilder, $collectionTypeProphecy, $collectionRequestParamsProphecy)->shouldBeCalled();
-    
+
         // create the object under test
         $collectionDataProvider = new CollectionDataProvider($queryBuilderFactoryProphecy->reveal(), [$applicatorProphcy->reveal()]);
 
@@ -90,17 +90,17 @@ class CollectionDataProviderTest extends TestCase
 
         $queryBuilderProphecy = $this->prophesize(QueryBuilder::class);
         $queryBuilder = $queryBuilderProphecy->reveal();
-        
+
         $queryBuilderFactoryProphecy->create('DataClass', $collectionTypeProphecy)->willReturn($queryBuilder);
 
         // create prophecies for the applicators
         $applicatorProphcy = $this->prophesize(CollectionResultableApplicatorInterface::class);
         $applicatorProphcy->willImplement(BuilderAwareInterface::class);
-        $applicatorProphcy->setBuilder(Argument::type(BuilderRegistryInterface::class), $collectionTypeProphecy , $collectionRequestParamsProphecy)->shouldBeCalled();
+        $applicatorProphcy->setBuilder(Argument::type(BuilderRegistryInterface::class), $collectionTypeProphecy, $collectionRequestParamsProphecy)->shouldBeCalled();
         $applicatorProphcy->applyToCollection($queryBuilder, $collectionTypeProphecy, $collectionRequestParamsProphecy)->shouldBeCalled();
         $applicatorProphcy->supportsResult($collectionTypeProphecy, $collectionRequestParamsProphecy, Argument::type(BuilderRegistryInterface::class))->willReturn(true)->shouldBeCalled();
         $applicatorProphcy->getResult($queryBuilder, $collectionTypeProphecy, $collectionRequestParamsProphecy, Argument::type(BuilderRegistryInterface::class))->willReturn([])->shouldBeCalled();
-    
+
         // create the object under test
         $collectionDataProvider = new CollectionDataProvider($queryBuilderFactoryProphecy->reveal(), [$applicatorProphcy->reveal()]);
 

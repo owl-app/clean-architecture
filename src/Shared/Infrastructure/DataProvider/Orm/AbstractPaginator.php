@@ -6,10 +6,10 @@ namespace Owl\Shared\Infrastructure\DataProvider\Orm;
 
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
+use IteratorAggregate;
 use Owl\Shared\Domain\DataProvider\Exception\InvalidArgumentException;
 use Owl\Shared\Domain\DataProvider\Pagination\PartialPaginatorInterface;
 use ReturnTypeWillChange;
-use IteratorAggregate;
 use Traversable;
 
 /**
@@ -18,8 +18,11 @@ use Traversable;
 abstract class AbstractPaginator implements IteratorAggregate, PartialPaginatorInterface
 {
     protected DoctrinePaginator $paginator;
+
     protected ?Traversable $iterator = null;
+
     protected ?int $firstResult;
+
     protected ?int $maxResults;
 
     /**
@@ -39,7 +42,7 @@ abstract class AbstractPaginator implements IteratorAggregate, PartialPaginatorI
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function getCurrentPage(): float
     {
@@ -51,7 +54,7 @@ abstract class AbstractPaginator implements IteratorAggregate, PartialPaginatorI
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function getItemsPerPage(): float
     {
@@ -59,15 +62,14 @@ abstract class AbstractPaginator implements IteratorAggregate, PartialPaginatorI
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      *
-     * @return Traversable
      * @psalm-return Traversable<array-key, mixed>
      */
     #[ReturnTypeWillChange]
     public function getIterator(): Traversable
     {
-        if (is_null($this->iterator)) {
+        if (null === $this->iterator) {
             $this->iterator = $this->paginator->getIterator();
         }
 
@@ -75,9 +77,7 @@ abstract class AbstractPaginator implements IteratorAggregate, PartialPaginatorI
     }
 
     /**
-     * {@inheritdoc}
-     *
-     * @return int
+     * @inheritdoc
      */
     #[ReturnTypeWillChange]
     public function count(): int

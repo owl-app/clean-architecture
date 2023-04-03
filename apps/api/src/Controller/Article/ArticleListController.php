@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Owl\Apps\Api\Controller\Article;
 
-use OpenApi\Attributes as OA;
 use Nelmio\ApiDocBundle\Annotation\Model;
+use OpenApi\Attributes as OA;
 use Owl\Article\Application\List\ArtliceListMapper;
 use Owl\Article\Domain\Model\Article;
 use Owl\Article\Infrastructure\DataProvider\ArticleCollectionDataProvider;
@@ -17,30 +17,30 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 final class ArticleListController extends ApiController
 {
     #[OA\Get(
-        summary: "List articles",
+        summary: 'List articles',
     )]
     #[OA\Response(
         response: 200,
         description: 'Successful response',
         content: new OA\JsonContent(
             type: 'array',
-            items: new OA\Items(ref: new Model(type: Article::class))
-        )
+            items: new OA\Items(ref: new Model(type: Article::class)),
+        ),
     )]
     #[OA\Parameter(
-        name: "filters[search][type]",
-        in: "query",
-        description: "Type search",
+        name: 'filters[search][type]',
+        in: 'query',
+        description: 'Type search',
         required: false,
         schema: new OA\Schema(
             enum: ['equal'],
-        )
+        ),
     )]
     #[OA\Parameter(
-        name: "filters[search][value]",
-        in: "query",
-        description: "Value ",
-        required: false
+        name: 'filters[search][value]',
+        in: 'query',
+        description: 'Value ',
+        required: false,
     )]
     #[OA\Tag(name: 'Articles', description: 'Articles in system')]
     public function __invoke(CollectionRequestParams $collectionRequestParams): JsonResponse
@@ -49,7 +49,7 @@ final class ArticleListController extends ApiController
             Article::class,
             new ArticleCollectionDataProvider(),
             $collectionRequestParams,
-            new ArtliceListMapper()
+            new ArtliceListMapper(),
         ));
 
         return $this->responseJson($data);

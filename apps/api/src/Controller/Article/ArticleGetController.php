@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Owl\Apps\Api\Controller\Article;
 
-use OpenApi\Attributes as OA;
 use Nelmio\ApiDocBundle\Annotation\Model;
+use OpenApi\Attributes as OA;
 use Owl\Article\Application\Get\ArtliceGetMapper;
 use Owl\Article\Domain\Model\Article;
 use Owl\Shared\Domain\DataProvider\Request\RequestParams;
@@ -16,14 +16,14 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 final class ArticleGetController extends ApiController
 {
     #[OA\Get(
-        summary: "Article item",
+        summary: 'Article item',
     )]
     #[OA\Response(
         response: 200,
         description: 'Successful response',
         content: new OA\JsonContent(
-            ref: new Model(type: Article::class)
-        )
+            ref: new Model(type: Article::class),
+        ),
     )]
     #[OA\Tag(name: 'Articles', description: 'Articles in system')]
     public function __invoke(RequestParams $requestParams): JsonResponse
@@ -32,7 +32,7 @@ final class ArticleGetController extends ApiController
             Article::class,
             $requestParams,
             null,
-            new ArtliceGetMapper()
+            new ArtliceGetMapper(),
         ));
 
         return $this->responseJson($data);

@@ -11,12 +11,12 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\CountWalker;
 use Owl\Shared\Domain\DataProvider\Builder\PaginationBuilderInterface;
-use Owl\Shared\Domain\DataProvider\Request\CollectionRequestParamsInterface;
-use Owl\Shared\Domain\DataProvider\Type\CollectionTypeInterface;
 use Owl\Shared\Domain\DataProvider\Exception\InvalidArgumentException;
 use Owl\Shared\Domain\DataProvider\Pagination\PaginatorInterface;
 use Owl\Shared\Domain\DataProvider\Pagination\PartialPaginatorInterface;
 use Owl\Shared\Domain\DataProvider\Registry\BuilderRegistry;
+use Owl\Shared\Domain\DataProvider\Request\CollectionRequestParamsInterface;
+use Owl\Shared\Domain\DataProvider\Type\CollectionTypeInterface;
 use Owl\Tests\Fixtures\DummyDataProvider;
 use Owl\Tests\Fixtures\Entity\Dummy;
 use PHPUnit\Framework\TestCase;
@@ -41,7 +41,7 @@ class PaginationApplicatorTest extends TestCase
         $filterApplicator->setBuilder(
             $builderRegistry,
             $collectionTypeProphecy->reveal(),
-            $collectionRequestParamsProphecy->reveal()
+            $collectionRequestParamsProphecy->reveal(),
         );
 
         $this->assertEquals(true, $builderRegistry->has(PaginationBuilderInterface::NAME));
@@ -72,21 +72,21 @@ class PaginationApplicatorTest extends TestCase
     public function getConfigPaginationWithQueryParams(): array
     {
         return [
-            'without config and query params' =>[
+            'without config and query params' => [
                 [],
                 [],
                 0,
-                10
+                10,
             ],
-            'with item per page 0' =>[
+            'with item per page 0' => [
                 [
-                    'allowed_per_page' => [0]
+                    'allowed_per_page' => [0],
                 ],
                 [
                     'per-page' => 0,
                 ],
                 0,
-                0
+                0,
             ],
             'without query params' => [
                 [
@@ -95,11 +95,11 @@ class PaginationApplicatorTest extends TestCase
                     'param_per_page_name' => 'per-page',
                     'param_page_name' => 'page',
                     'default_per_page' => 20,
-                    'allowed_per_page' => [10,20,50,100]
+                    'allowed_per_page' => [10, 20, 50, 100],
                 ],
                 [],
                 0,
-                20
+                20,
             ],
             'per page query params' => [
                 [
@@ -108,13 +108,13 @@ class PaginationApplicatorTest extends TestCase
                     'param_per_page_name' => 'per-page',
                     'param_page_name' => 'page',
                     'default_per_page' => 20,
-                    'allowed_per_page' => [10,20,50,100]
+                    'allowed_per_page' => [10, 20, 50, 100],
                 ],
                 [
-                    'per-page' => 10
+                    'per-page' => 10,
                 ],
                 0,
-                10
+                10,
             ],
             'page query params' => [
                 [
@@ -123,13 +123,13 @@ class PaginationApplicatorTest extends TestCase
                     'param_per_page_name' => 'per-page',
                     'param_page_name' => 'page',
                     'default_per_page' => 20,
-                    'allowed_per_page' => [10,20,50,100]
+                    'allowed_per_page' => [10, 20, 50, 100],
                 ],
                 [
-                    'page' => 2
+                    'page' => 2,
                 ],
                 20,
-                20
+                20,
             ],
             'per page and page query params' => [
                 [
@@ -138,14 +138,14 @@ class PaginationApplicatorTest extends TestCase
                     'param_per_page_name' => 'per-page',
                     'param_page_name' => 'page',
                     'default_per_page' => 20,
-                    'allowed_per_page' => [10,20,50,100]
+                    'allowed_per_page' => [10, 20, 50, 100],
                 ],
                 [
                     'per-page' => 20,
-                    'page' => 3
+                    'page' => 3,
                 ],
                 40,
-                20
+                20,
             ],
         ];
     }
@@ -196,9 +196,9 @@ class PaginationApplicatorTest extends TestCase
 
     public function testApplyToCollectionWithInvalidPerPage(): void
     {
-        $allowedPerPage = [10,20,50,100];
+        $allowedPerPage = [10, 20, 50, 100];
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(\sprintf('Not allowed per page, available: %s', implode(',',$allowedPerPage)));
+        $this->expectExceptionMessage(\sprintf('Not allowed per page, available: %s', implode(',', $allowedPerPage)));
 
         $queryBuilderProphecy = $this->prophesize(QueryBuilder::class);
         $queryBuilderProphecy->setFirstResult(0)->willReturn($queryBuilderProphecy)->shouldNotBeCalled();
@@ -282,7 +282,7 @@ class PaginationApplicatorTest extends TestCase
 
         $applicator = new PaginationApplicator();
         $applicator->setBuilder($builderRegistry, $collectionType, $collectionRequestParams->reveal());
-        
+
         $result = $applicator->getResult($queryBuilder, $collectionType, $collectionRequestParams->reveal(), $builderRegistry);
 
         $this->assertInstanceOf(PartialPaginatorInterface::class, $result);
@@ -314,7 +314,7 @@ class PaginationApplicatorTest extends TestCase
 
         $applicator = new PaginationApplicator();
         $applicator->setBuilder($builderRegistry, $collectionType, $collectionRequestParams->reveal());
-        
+
         $result = $applicator->getResult($queryBuilder, $collectionType, $collectionRequestParams->reveal(), $builderRegistry);
 
         $this->assertInstanceOf(PartialPaginatorInterface::class, $result);

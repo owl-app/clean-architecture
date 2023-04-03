@@ -32,15 +32,15 @@ final class DummyDataProvider extends AbstractCollectionType implements Buildabl
 
     public function buildQueryBuilder(QueryBuilder $queryBuilder): void
     {
-        if(isset($this->queryBuilderConfig['with_add_select'])) {
+        if (isset($this->queryBuilderConfig['with_add_select'])) {
             $queryBuilder->addSelect($this->queryBuilderConfig['with_add_select']);
         }
     }
 
     public function buildFilters(FilterBuilderInterface $filterBuilder): void
     {
-        if($this->filterConfig) {
-            foreach($this->filterConfig as $filter) {
+        if ($this->filterConfig) {
+            foreach ($this->filterConfig as $filter) {
                 $filterBuilder
                     ->add($filter['name'], $filter['filter'], $filter['fields'])
                 ;
@@ -50,7 +50,7 @@ final class DummyDataProvider extends AbstractCollectionType implements Buildabl
 
     public function buildPagination(PaginationBuilderInterface $paginationBuilder): void
     {
-        if(isset($this->paginationConfig['hasPagination'])) {
+        if (isset($this->paginationConfig['hasPagination'])) {
             $paginationBuilder->setHasPagination($this->paginationConfig['hasPagination']);
         }
     }

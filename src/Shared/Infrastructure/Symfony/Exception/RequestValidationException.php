@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Owl\Shared\Infrastructure\Symfony\Exception;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
-use Symfony\Component\HttpFoundation\Response;
 
 class RequestValidationException extends HttpException
 {

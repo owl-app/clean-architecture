@@ -10,7 +10,6 @@ class CreateCommentRequest implements RequestDtoInterface
 {
     public function __construct(private string $description)
     {
-
     }
 
     public function getDescription(): string

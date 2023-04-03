@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Owl\Shared\Infrastructure\DataProvider\Orm\Resolver;
 
-use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\Expr\From;
 use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\QueryBuilder;
 use Owl\Shared\Domain\DataProvider\Exception\RuntimeException;
 
 class FieldResolver implements FieldResolverInterface

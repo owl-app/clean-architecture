@@ -11,7 +11,7 @@ final class Paginator extends AbstractPaginator implements PaginatorInterface
     private ?int $totalItems = null;
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function getLastPage(): float
     {
@@ -23,7 +23,7 @@ final class Paginator extends AbstractPaginator implements PaginatorInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function getTotalItems(): float
     {

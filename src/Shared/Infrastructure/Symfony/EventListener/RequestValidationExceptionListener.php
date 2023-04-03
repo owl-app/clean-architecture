@@ -21,7 +21,7 @@ class RequestValidationExceptionListener
         }
 
         $response = new JsonResponse([
-            'errors' => $this->formatErrors($exception->getViolationList())
+            'errors' => $this->formatErrors($exception->getViolationList()),
         ]);
 
         $event->setResponse($response);
@@ -37,8 +37,8 @@ class RequestValidationExceptionListener
                 'message' => $violation->getMessage(),
                 'code' => $violation->getCode(),
                 'context' => [
-                    'field' => $violation->getPropertyPath()
-                ]
+                    'field' => $violation->getPropertyPath(),
+                ],
             ];
 
             $errors[] = $data;

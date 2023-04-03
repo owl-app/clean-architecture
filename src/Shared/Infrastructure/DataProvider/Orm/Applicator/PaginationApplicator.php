@@ -6,13 +6,13 @@ namespace Owl\Shared\Infrastructure\DataProvider\Orm\Applicator;
 
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\CountWalker;
+use Doctrine\ORM\Tools\Pagination\Paginator as DoctrineOrmPaginator;
 use Owl\Shared\Domain\DataProvider\Builder\BuilderAwareInterface;
 use Owl\Shared\Domain\DataProvider\Builder\PaginationBuilder;
 use Owl\Shared\Domain\DataProvider\Builder\PaginationBuilderInterface;
 use Owl\Shared\Domain\DataProvider\Registry\BuilderRegistryInterface;
 use Owl\Shared\Domain\DataProvider\Request\CollectionRequestParamsInterface;
 use Owl\Shared\Domain\DataProvider\Type\CollectionTypeInterface;
-use Doctrine\ORM\Tools\Pagination\Paginator as DoctrineOrmPaginator;
 use Owl\Shared\Domain\DataProvider\Validation\PaginationParametersValidator;
 use Owl\Shared\Domain\DataProvider\Validation\PaginationParametersValidatorInterface;
 use Owl\Shared\Infrastructure\DataProvider\Orm\Paginator;
@@ -48,11 +48,11 @@ class PaginationApplicator implements CollectionResultableApplicatorInterface, B
         $allowedPerPage = $this->builder->getAllowedPerPage();
 
         $this->paginationValidator->validatePaginationParameters($offset, $limit, $page, $allowedPerPage);
-        
+
         $queryBuilder
             ->setFirstResult($offset)
-            ->setMaxResults($limit);
-        
+            ->setMaxResults($limit)
+        ;
     }
 
     public function supportsResult(CollectionTypeInterface $collectionType, CollectionRequestParamsInterface $collectionRequestParams, BuilderRegistryInterface $builderRegistry): bool

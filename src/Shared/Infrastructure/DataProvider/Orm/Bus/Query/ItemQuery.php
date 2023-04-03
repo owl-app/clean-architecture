@@ -18,7 +18,7 @@ final class ItemQuery implements ItemQueryInterface
         private string $model,
         private RequestParamsInterface $requestParams,
         private ?ItemTypeInterface $type = null,
-        private ?ItemMapperInterface $mapper = null
+        private ?ItemMapperInterface $mapper = null,
     ) {
     }
 
@@ -27,7 +27,7 @@ final class ItemQuery implements ItemQueryInterface
         return $this->model;
     }
 
-    public function getType():? ItemTypeInterface
+    public function getType(): ? ItemTypeInterface
     {
         return $this->type;
     }
@@ -37,7 +37,7 @@ final class ItemQuery implements ItemQueryInterface
         return $this->requestParams;
     }
 
-    public function getMapper():? ItemMapperInterface
+    public function getMapper(): ? ItemMapperInterface
     {
         return $this->mapper;
     }

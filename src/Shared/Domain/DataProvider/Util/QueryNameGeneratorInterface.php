@@ -13,9 +13,6 @@ declare(strict_types=1);
 
 namespace Owl\Shared\Domain\DataProvider\Util;
 
-/**
- * @author Amrouche Hamza <hamza.simperfit@gmail.com>
- */
 interface QueryNameGeneratorInterface
 {
     /**

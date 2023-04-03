@@ -30,7 +30,7 @@ class QueryBuilderFactory implements QueryBuilderFactoryInterface
 
         $queryBuilder = $repository->createQueryBuilder('o');
 
-        if($collectionType && $collectionType instanceof BuildableQueryBuilderInterface) {
+        if ($collectionType && $collectionType instanceof BuildableQueryBuilderInterface) {
             $collectionType->buildQueryBuilder($queryBuilder);
         }
 

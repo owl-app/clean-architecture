@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Owl\Shared\Domain\DataProvider\Builder;
 
 class PaginationBuilder implements PaginationBuilderInterface
@@ -23,10 +25,10 @@ class PaginationBuilder implements PaginationBuilderInterface
         $this->paramPerPageName = $defaultParameters['param_per_page_name'] ?? 'per-page';
         $this->paramPageName = $defaultParameters['param_page_name'] ?? 'page';
         $this->defaultPerPage = $defaultParameters['default_per_page'] ?? 10;
-        $this->allowedPerPage = $defaultParameters['allowed_per_page'] ?? [10,20,50,100];
+        $this->allowedPerPage = $defaultParameters['allowed_per_page'] ?? [10, 20, 50, 100];
         $this->fetchJoinCollection = $defaultParameters['fetch_join_collection'] ?? true;
         $this->useOutputWalkers = $defaultParameters['use_output_walkers'] ?? true;
-        
+
         $this->hasPagination = true;
     }
 
@@ -120,25 +122,25 @@ class PaginationBuilder implements PaginationBuilderInterface
     }
 
     public function getPage(): int
-    { 
-       if (isset($this->queryParams[$this->paramPageName])) {
-          return (int) $this->queryParams[$this->paramPageName];
-       }
- 
-       return 1;
+    {
+        if (isset($this->queryParams[$this->paramPageName])) {
+            return (int) $this->queryParams[$this->paramPageName];
+        }
+
+        return 1;
     }
 
     public function getPerPage(): int
     {
-       if (isset($this->queryParams[$this->paramPerPageName])) {
-          return (int) $this->queryParams[$this->paramPerPageName];
-       }
- 
-       return $this->getDefaultPerPage();
+        if (isset($this->queryParams[$this->paramPerPageName])) {
+            return (int) $this->queryParams[$this->paramPerPageName];
+        }
+
+        return $this->getDefaultPerPage();
     }
 
     public function getOffset(): int
     {
-       return ($this->getPage() - 1) * $this->getPerPage();
+        return ($this->getPage() - 1) * $this->getPerPage();
     }
 }

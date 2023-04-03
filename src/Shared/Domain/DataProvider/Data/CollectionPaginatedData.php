@@ -6,7 +6,6 @@ namespace Owl\Shared\Domain\DataProvider\Data;
 
 use IteratorAggregate;
 use Owl\Shared\Domain\DataProvider\Pagination\PaginatorInterface;
-use Traversable;
 
 class CollectionPaginatedData extends CollectionData implements PaginatedDataInterface
 {

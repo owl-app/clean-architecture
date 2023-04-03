@@ -3,90 +3,64 @@
 declare(strict_types=1);
 
 namespace Owl\Tests\Fixtures\Entity;
-;
+
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 class Dummy
 {
-    /**
-     * @var int|null The id
-     */
+    /** @var int|null The id */
     #[ORM\Column(type: 'integer', nullable: true)]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
     private $id;
 
-    /**
-     * @var string The dummy name
-     */
+    /** @var string The dummy name */
     #[ORM\Column]
     #[Assert\NotBlank]
     private string $name;
 
-    /**
-     * @var string|null The dummy name alias
-     */
+    /** @var string|null The dummy name alias */
     #[ORM\Column(nullable: true)]
     private $alias;
 
-    /**
-     * @var array foo
-     */
+    /** @var array foo */
     private ?array $foo = null;
 
-    /**
-     * @var string|null A short description of the item
-     */
+    /** @var string|null A short description of the item */
     #[ORM\Column(nullable: true)]
     public $description;
 
-    /**
-     * @var string|null A dummy
-     */
+    /** @var string|null A dummy */
     #[ORM\Column(nullable: true)]
     public $dummy;
 
-    /**
-     * @var bool|null A dummy boolean
-     */
+    /** @var bool|null A dummy boolean */
     #[ORM\Column(type: 'boolean', nullable: true)]
-
     public ?bool $dummyBoolean = null;
-    /**
-     * @var \DateTime|null A dummy date
-     */
+
+    /** @var \DateTime|null A dummy date */
     #[ORM\Column(type: 'datetime', nullable: true)]
     public $dummyDate;
 
-    /**
-     * @var float|null A dummy float
-     */
+    /** @var float|null A dummy float */
     #[ORM\Column(type: 'float', nullable: true)]
     public $dummyFloat;
 
-    /**
-     * @var string|null A dummy price
-     */
+    /** @var string|null A dummy price */
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2, nullable: true)]
     public $dummyPrice;
 
-    /**
-     * @var array|null serialize data
-     */
+    /** @var array|null serialize data */
     #[ORM\Column(type: 'json', nullable: true)]
     public $jsonData = [];
 
-    /**
-     * @var array|null
-     */
+    /** @var array|null */
     #[ORM\Column(type: 'simple_array', nullable: true)]
     public $arrayData = [];
 
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     #[ORM\Column(nullable: true)]
     public $nameConverted;
 
