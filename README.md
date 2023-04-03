@@ -26,7 +26,7 @@
 1. Make sure you have installed Docker on your local machine
 2. Clone this project: git clone git@github.com:owl-app/clean-architecture.git
 3. Execute docker compose up -d in your favorite terminal and wait some time until the services will be ready.
-4. Then you will have [API docs](apps/api) abailable on http://localhost:8080/api/doc in your browser
+4. Then you will have [API app](apps/api) docs available on http://localhost:8080/api/doc in your browser
 
 ## Project details
 
