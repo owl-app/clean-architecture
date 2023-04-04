@@ -28,7 +28,7 @@
 3. Execute `docker compose up -d` or `make docker-build` in your terminal and wait some time until the services will be ready
 4. Then you will have [API app](apps/api) docs available on http://localhost:8080/api/doc in your browser
 
-### Manualy
+### Manually
 ```bash
 $ git clone git@github.com:owl-app/clean-architecture.git
 $ cd clean-architecture
