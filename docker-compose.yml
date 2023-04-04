@@ -2,6 +2,7 @@ version: '3.4'
 
 services:
   php:
+    container_name: owl-clean_architecture-php
     build:
       context: .
       target: owl_php
