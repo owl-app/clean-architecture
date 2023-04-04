@@ -19,7 +19,7 @@ clear-cache:
 
 docker-build: CMD=up --build -d
 
-docker-start: CMD=up
+docker-start: CMD=up -d
 
 docker-stop: CMD=stop
 
