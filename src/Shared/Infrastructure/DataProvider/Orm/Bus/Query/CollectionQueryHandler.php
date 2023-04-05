@@ -28,13 +28,9 @@ class CollectionQueryHandler implements CollectionQueryHandlerInterface
             $collectionQuery->getType(),
             $collectionQuery->getRequestParams(),
         );
-        $mapper = $collectionQuery->getMapper();
-        /** @var Traversable|null $mappedData */
-        $mappedData = null;
 
-        if (null !== $mapper) {
-            $mappedData = $mapper->toResponse($data);
-        }
+        /** @var Traversable|null $mappedData */
+        $mappedData = $collectionQuery->getMapper()?->toResponse($data);
 
         if ($data instanceof PaginatorInterface) {
             return new CollectionPaginatedData($data, $mappedData);

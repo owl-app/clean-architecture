@@ -22,13 +22,9 @@ class ItemQueryHandler implements ItemQueryHandlerInterface
             $itemQuery->getRequestParams(),
             $itemQuery->getType(),
         );
-        $mapper = $itemQuery->getMapper();
-        /** @var object|null $mappedData */
-        $mappedData = null;
 
-        if (null !== $mapper) {
-            $mappedData = $mapper->toResponse($data);
-        }
+        /** @var object|null $mappedData */
+        $mappedData = $itemQuery->getMapper()?->toResponse($data);
 
         return $mappedData ?? $data;
     }
