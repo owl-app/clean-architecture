@@ -9,7 +9,10 @@ fi
 
 if [ "$1" = 'php-fpm' ] || [ "$1" = 'bin/console' ]; then
 	mkdir -p apps/api/var/cache apps/api/var/log
-	setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX apps/api/var || true
+
+	# @note: certain filesystems might not support setfacl
+	setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX apps/api/var || true
+ 	setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX apps/api/var || true
 
 	if [ ! -e ".env.local" ]; then
 		cp -p .env .env.local
