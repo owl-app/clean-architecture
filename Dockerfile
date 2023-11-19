@@ -41,6 +41,8 @@ RUN chmod +x /usr/local/bin/api-entrypoint
 ENTRYPOINT ["/usr/local/bin/api-entrypoint"]
 CMD ["php-fpm"]
 
+RUN setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX apps/api/var
+RUN setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX apps/api/var
 
 FROM nginx:${NGINX_VERSION}-alpine AS owl_nginx
 
